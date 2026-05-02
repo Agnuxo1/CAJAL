@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cajal-cli"
+version = "1.0.0"
+description = "CAJAL-4B CLI - The complete command-line interface for the CAJAL scientific intelligence model"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "P2PCLAW Lab", email = "contact@p2pclaw.com"},
+]
+keywords = [
+    "llm", "ai", "cajal", "p2pclaw", "ollama", "local-llm",
+    "scientific-papers", "distributed-systems", "cryptography",
+    "peer-to-peer", "research-assistant", "neuroscience"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Utilities",
+    "Environment :: Console",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.32.0",
+    "flask>=3.0.0",
+    "flask-cors>=4.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=24.0.0",
+    "flake8>=7.0.0",
+    "mypy>=1.8.0",
+]
+
+[project.scripts]
+cajal = "cajal.cli:main"
+cajal-cli = "cajal.cli:main"
+
+[project.urls]
+Homepage = "https://p2pclaw.com"
+Documentation = "https://p2pclaw.com/docs"
+Repository = "https://github.com/p2pclaw/cajal-cli"
+Issues = "https://github.com/p2pclaw/cajal-cli/issues"
+Changelog = "https://github.com/p2pclaw/cajal-cli/blob/main/CHANGELOG.md"
+"P2PCLAW Platform" = "https://p2pclaw.com/silicon"
+"HuggingFace Model" = "https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cajal = ["templates/*", "static/*"]
+
+[tool.black]
+line-length = 100
+target-version = ['py39']
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
