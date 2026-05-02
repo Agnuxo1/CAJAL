@@ -1,0 +1,58 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cajal-p2pclaw"
+version = "1.0.0"
+description = "CAJAL-4B — Native integration for the P2PCLAW scientific intelligence model. Easy inference, chat, and server."
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "Francisco Angulo de Lafuente", email = "lareliquia.angulo@gmail.com"}
+]
+keywords = ["llm", "ai", "p2pclaw", "cajal", "scientific", "research", "qwen", "ollama", "agents"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "transformers>=4.40.0",
+    "torch>=2.2.0",
+    "accelerate>=0.29.0",
+    "peft>=0.10.0",
+    "huggingface-hub>=0.23.0",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.29.0",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+server = ["fastapi>=0.110.0", "uvicorn>=0.29.0"]
+quantized = ["bitsandbytes>=0.43.0", "optimum>=1.18.0"]
+all = ["fastapi>=0.110.0", "uvicorn>=0.29.0", "bitsandbytes>=0.43.0", "optimum>=1.18.0"]
+
+[project.urls]
+Homepage = "https://github.com/Agnuxo1/CAJAL"
+Documentation = "https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW"
+Repository = "https://github.com/Agnuxo1/CAJAL"
+Issues = "https://github.com/Agnuxo1/CAJAL/issues"
+
+[project.scripts]
+cajal = "cajal.cli:main"
+cajal-server = "cajal.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["cajal_p2pclaw"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"cajal_p2pclaw/integrations" = "cajal_p2pclaw/integrations"

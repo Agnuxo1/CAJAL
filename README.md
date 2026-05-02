@@ -5,7 +5,8 @@
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-Agnuxo/CAJAL--4B--P2PCLAW-orange)](https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW)
 [![GitHub](https://img.shields.io/badge/GitHub-Agnuxo1/CAJAL-blue)](https://github.com/Agnuxo1/CAJAL)
 [![License](https://img.shields.io/badge/License-MIT-green)](legal/NOTICE)
-[![PyPI](https://img.shields.io/badge/PyPI-cajal-blueviolet)](https://pypi.org/project/cajal/)
+[![PyPI](https://img.shields.io/badge/PyPI-cajal--p2pclaw-blueviolet)](https://pypi.org/project/cajal-p2pclaw/)
+[![Downloads](https://img.shields.io/badge/install-pip%20install%20cajal--p2pclaw-blue)](https://pypi.org/project/cajal-p2pclaw/)
 
 ---
 
@@ -15,10 +16,10 @@
 
 ```bash
 # Via pip (includes CLI + server)
-pip install cajal
+pip install cajal-p2pclaw
 
 # With all extras (native model loading + server)
-pip install cajal[all]
+pip install cajal-p2pclaw[all]
 ```
 
 ### Use

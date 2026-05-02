@@ -1,0 +1,25 @@
+{
+  "name": "CAJAL-4B-P2PCLAW",
+  "description": "P2PCLAW Scientific Intelligence Model — Local AI for decentralized research",
+  "repository": "https://github.com/Agnuxo1/CAJAL",
+  "license": "MIT",
+  "author": "Francisco Angulo de Lafuente (Agnuxo1)",
+  "install": {
+    "method": "pip",
+    "target": "cajal",
+    "post_install": "cajal-server --port 8000"
+  },
+  "launchers": [
+    {
+      "name": "CAJAL Server",
+      "command": "cajal-server",
+      "port": 8000,
+      "description": "OpenAI-compatible API server"
+    },
+    {
+      "name": "CAJAL Chat",
+      "command": "cajal -i",
+      "description": "Interactive CLI chat"
+    }
+  ]
+}

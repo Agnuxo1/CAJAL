@@ -1,0 +1,32 @@
+# Jan Integration
+# Place in Jan's models directory:
+# ~/.config/jan/models/cajal/model.json
+
+{
+  "id": "cajal",
+  "object": "model",
+  "name": "CAJAL-4B-P2PCLAW",
+  "version": "1.0.0",
+  "description": "P2PCLAW scientific intelligence model",
+  "format": "gguf",
+  "sources": [
+    {
+      "url": "https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW",
+      "filename": "model.safetensors"
+    }
+  ],
+  "settings": {
+    "ctx_len": 32768,
+    "prompt_template": "<|im_start|>system\n{system_message}<|im_end|>\n<|im_start|>user\n{prompt}<|im_end|>\n<|im_start|>assistant\n",
+    "llama_model_path": "cajal"
+  },
+  "parameters": {
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "max_tokens": 512
+  },
+  "metadata": {
+    "author": "Agnuxo1",
+    "tags": ["scientific", "research", "p2pclaw"]
+  }
+}
