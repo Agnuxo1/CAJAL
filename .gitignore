@@ -1,0 +1,112 @@
+# CAJAL - Git Ignore
+
+# Original Models (very large files)
+Modelos_originales/
+Modelos originales/
+
+# Ollama blobs
+outputs/*/blobs/
+outputs/*/manifests/
+
+# Models & Large Files
+*.gguf
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+!ecosystem/**/model_info.json
+
+# Model outputs (but keep configs and docs)
+outputs/*/checkpoints/
+outputs/*/CAJAL-4B-lora/
+outputs/*/CAJAL-4B-merged-16bit/
+!outputs/*/CAJAL-4B-merged-16bit/*.json
+!outputs/*/CAJAL-4B-merged-16bit/*.md
+!outputs/*/CAJAL-4B-merged-16bit/*.jinja
+!outputs/*/CAJAL-4B-merged-16bit/README*
+
+# Logs
+*.log
+training_*.log
+*.out
+
+# Environment & Secrets
+.env
+.env.*
+*.env
+tokens.txt
+secrets.*
+credentials.json
+*token*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+desktop.ini
+
+# HuggingFace cache
+.huggingface/
+.cache/
+
+# Ollama
+ollama/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Temporary
+tmp/
+temp/
+*.tmp
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Large binaries
+*.msi
+*.vsix
+*.exe
+
+# Test logs
+test_*.txt
+test_*.out
+
+# Cache directories
+unsloth_compiled_cache/
+
+# Generated images (large)
+ChatGPT*.png
+
+# Keep only ecosystem and configs from outputs
+outputs/*/CAJAL-4B-f16.gguf
+outputs/*/CAJAL-4B-q4_*.gguf

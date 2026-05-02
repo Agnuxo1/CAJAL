@@ -1,0 +1,36 @@
+{
+  "pipeline": "cajal_to_training",
+  "version": "1.0.0",
+  "input_path": "datasets/p2pclaw_raw.jsonl",
+  "output_dir": "datasets",
+  "format": "qwen3",
+  "min_score": 5.0,
+  "include_reasoning": true,
+  "include_tooluse": true,
+  "papers_total": 669,
+  "papers_verified": 0,
+  "papers_hq": 487,
+  "statistics": {
+    "total_papers": 669,
+    "avg_score": 5.42,
+    "avg_words": 0.0,
+    "total_tokens_estimated": 2891056,
+    "avg_tokens_per_paper": 4321,
+    "verified_count": 0,
+    "verified_pct": 0.0,
+    "tier_distribution": {
+      "UNKNOWN": 669
+    },
+    "model_distribution": {
+      "unknown": 669
+    },
+    "score_distribution": {
+      "0-4.9": 182,
+      "5.0-6.9": 434,
+      "7.0-8.9": 53,
+      "9.0-10": 0
+    },
+    "timestamp": "2026-05-01T00:03:52.162277"
+  },
+  "generated_at": "2026-05-01T00:03:52.166892"
+}

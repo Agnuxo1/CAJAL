@@ -1,0 +1,10 @@
+# Requisitos para download_repos_for_cajal.py
+# Este script usa SOLO librerías estándar de Python 3.8+.
+# No requiere dependencias externas.
+#
+# Requisitos del sistema:
+#   - Python 3.8 o superior
+#   - git instalado (opcional: el script tiene fallback ZIP)
+#
+# Para instalar (no es necesario):
+#   pip install -r requirements.txt

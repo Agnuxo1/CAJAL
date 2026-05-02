@@ -1,0 +1,133 @@
+# CAJAL Agent — Configuration Template
+# This is a template. Copy and fill in your actual credentials.
+# Do NOT commit real API keys to version control.
+
+# ---------------------------------------------------------------------------
+# Agent Identity
+# ---------------------------------------------------------------------------
+agent:
+  id: "silicon-cajal-1b"
+  type: "Silicon"
+  name: "CAJAL-Silicon"
+  description: "Autonomous Silicon-grade research agent for the P2PCLAW network"
+
+# ---------------------------------------------------------------------------
+# Model Configuration
+# ---------------------------------------------------------------------------
+model:
+  path: "P2PClaw/CAJAL-4B"   # HuggingFace repo or local path
+  use_unsloth: true                      # Use Unsloth FastLanguageModel acceleration
+  max_seq_length: 4096                   # Context window
+  dtype: null                            # null = auto (float16/bfloat16)
+  load_in_4bit: true                     # 4-bit quantization via bitsandbytes
+  load_in_8bit: false
+  trust_remote_code: true
+
+# ---------------------------------------------------------------------------
+# P2PCLAW API Configuration
+# ---------------------------------------------------------------------------
+api:
+  base_url: "https://p2pclaw-mcp-server-production-ac1c.up.railway.app"
+  alternative_url: "https://www.p2pclaw.com"
+  # Set via environment variable P2PCLAW_API_KEY or fill below
+  api_key: ""                            # <-- PASTE YOUR API KEY HERE
+  timeout: 60
+  verify_ssl: true
+
+# ---------------------------------------------------------------------------
+# Generation Hyperparameters
+# ---------------------------------------------------------------------------
+generation:
+  temperature: 0.7
+  top_p: 0.9
+  top_k: 50
+  max_new_tokens: 2048                   # For chat / short responses
+  paper_max_tokens: 4096                 # For full paper generation
+  paper_temperature: 0.65                # Slightly lower for papers
+  thinking_mode: true                    # Enable Qwen3-style thinking tags
+
+# ---------------------------------------------------------------------------
+# Autonomous Loop Settings
+# ---------------------------------------------------------------------------
+loop:
+  enabled: true
+  daemon: false                          # Run in background thread
+  publish_interval_minutes: 60           # Minutes between publications
+  max_iterations: null                   # null = infinite
+  auto_vote: true                        # Automatically vote on mempool papers
+  cooldown_after_publish_seconds: 300    # Extra cooldown after each publish
+
+# ---------------------------------------------------------------------------
+# Default Research Topics
+# ---------------------------------------------------------------------------
+default_topics:
+  - "Decentralized consensus mechanisms in P2P networks"
+  - "Formal verification of smart contracts using Lean 4"
+  - "Sybil-resistant identity protocols for distributed systems"
+  - "Mempool optimization for proof-of-knowledge networks"
+  - "Multi-model tribunal scoring for AI-generated research"
+  - "Cryptographic proof systems for decentralized peer review"
+  - "Incentive alignment in autonomous research agent networks"
+  - "Lean 4 formalization of distributed consensus theorems"
+
+# ---------------------------------------------------------------------------
+# Tier Strategy
+# ---------------------------------------------------------------------------
+tier_strategy:
+  cycle_order:
+    - "GAMMA"
+    - "BETA"
+    - "ALOHA"
+  promotion_threshold: 0.75              # Auto-promote if self-score > this
+  minimum_interval_between_aloha_hours: 24
+
+# ---------------------------------------------------------------------------
+# Lean 4 Verification
+# ---------------------------------------------------------------------------
+lean:
+  auto_generate_for_tiers:
+    - "ALOHA"
+    - "BETA"
+  max_theorems_per_paper: 3
+  verification_timeout_seconds: 60
+  fallback_to_sketch: true             # If proof fails, emit proof sketch
+
+# ---------------------------------------------------------------------------
+# Logging
+# ---------------------------------------------------------------------------
+log_dir: "/mnt/agents/output/logs"
+log_level: "INFO"                        # DEBUG, INFO, WARNING, ERROR
+
+# ---------------------------------------------------------------------------
+# System Prompts (customizable)
+# ---------------------------------------------------------------------------
+system_prompt: |
+  You are CAJAL, a Silicon-grade autonomous research agent specialized in
+  generating formal scientific papers for the P2PCLAW decentralized network.
+
+  Your papers must adhere to the following structure:
+  1. TITLE: Clear, specific, and novel.
+  2. ABSTRACT: Concise summary (150-250 words) of the problem, methods, results.
+  3. INTRODUCTION: Context, motivation, related work, and research questions.
+  4. METHODOLOGY: Detailed, reproducible methods with formal notation.
+  5. RESULTS: Quantitative findings with statistical validation.
+  6. DISCUSSION: Interpretation, limitations, future work.
+  7. CONCLUSION: Key takeaways and impact.
+  8. REFERENCES: Citable prior work (use standard academic format).
+  9. APPENDIX (optional): Lean 4 proofs, extra derivations, datasets.
+
+  Rules:
+  - Use precise mathematical notation.
+  - When proving theorems, provide Lean 4 code blocks.
+  - Be skeptical of your own reasoning; note uncertainty.
+  - Cite sources when referencing external results.
+  - Tier ALOHA papers require at least one formally verified theorem.
+
+# Thinking prompt used when thinking_mode = true
+thinking_prompt: |
+  Before generating the final paper, reason step-by-step about:
+  1. What is the core research question?
+  2. What methodology best addresses it?
+  3. What are the strongest claims I can make?
+  4. Where might the argument be weakest?
+  5. How can I make this reproducible?

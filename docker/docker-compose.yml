@@ -1,0 +1,178 @@
+version: "3.9"
+
+# =============================================================================
+# Docker Compose: CAJAL API Server
+# =============================================================================
+# Levanta el modelo como servicio API con FastAPI + vLLM o llama-cpp-python.
+#
+# Uso:
+#   docker compose up -d          # Iniciar servicio
+#   docker compose logs -f api    # Ver logs
+#   docker compose down           # Detener
+#
+# Requiere:
+#   - Docker Engine >= 24.0
+#   - NVIDIA Container Toolkit (para GPU)
+#   - Modelo GGUF o HF montado en ./models/
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # API Server principal
+  # ---------------------------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Seleccionar backend: vllm | llama-cpp
+        BACKEND: ${BACKEND:-vllm}
+        CUDA_VERSION: ${CUDA_VERSION:-12.1}
+    image: cajal-api:latest
+    container_name: cajal-api
+    restart: unless-stopped
+
+    ports:
+      - "${API_PORT:-8000}:8000"
+
+    volumes:
+      # Montar directorio con modelos (GGUF o HF)
+      - type: bind
+        source: ${MODELS_DIR:-./models}
+        target: /app/models
+        read_only: true
+
+      # Directorio para logs persistentes
+      - type: bind
+        source: ${LOGS_DIR:-./logs}
+        target: /app/logs
+
+      # Configuración opcional
+      - type: bind
+        source: ${CONFIG_FILE:-./config.json}
+        target: /app/config.json
+        read_only: true
+
+    environment:
+      # Modelo a cargar (ruta dentro del contenedor)
+      MODEL_PATH: ${MODEL_PATH:-/app/models/cajal-q4_k_m.gguf}
+      MODEL_TYPE: ${MODEL_TYPE:-gguf}
+      LORA_PATH: ${LORA_PATH:-}
+
+      # Parámetros de inferencia
+      CONTEXT_LENGTH: ${CONTEXT_LENGTH:-32768}
+      MAX_MODEL_LEN: ${MAX_MODEL_LEN:-32768}
+      TEMPERATURE: ${TEMPERATURE:-0.7}
+      TOP_P: ${TOP_P:-0.9}
+      TOP_K: ${TOP_K:-40}
+
+      # GPU / vLLM
+      GPU_MEMORY_UTILIZATION: ${GPU_MEMORY_UTILIZATION:-0.90}
+      TENSOR_PARALLEL_SIZE: ${TENSOR_PARALLEL_SIZE:-1}
+      DTYPE: ${DTYPE:-auto}
+
+      # Logging
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      ACCESS_LOG: ${ACCESS_LOG:-true}
+
+      # System prompt personalizado
+      SYSTEM_PROMPT: ${SYSTEM_PROMPT:-You are CAJAL, a Silicon agent in the P2PCLAW network, specialized in peer-to-peer networks, distributed systems, game theory, mechanism design, and legal-tech intersections. Named in honor of Santiago Ramón y Cajal.}
+
+      # Configuración de HuggingFace (opcional, para descargar modelos)
+      HF_TOKEN: ${HF_TOKEN:-}
+      HF_HOME: /app/.cache/huggingface
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+    # Healthcheck: verifica que el servicio responde
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s  # vLLM puede tardar en cargar
+
+    # Límites de recursos (ajustar según hardware)
+    # mem_limit: 24g
+    # cpus: '8'
+
+    networks:
+      - p2pclaw-network
+
+    labels:
+      - "traefik.enable=false"
+      - "p2pclaw.service=api"
+
+  # ---------------------------------------------------------------------------
+  # Servicio opcional: Reverse Proxy (Traefik) para SSL y routing
+  # Descomentar si se necesita exponer a internet
+  # ---------------------------------------------------------------------------
+  # traefik:
+  #   image: traefik:v3.0
+  #   container_name: p2pclaw-traefik
+  #   restart: unless-stopped
+  #   command:
+  #     - "--api.insecure=true"
+  #     - "--providers.docker=true"
+  #     - "--entrypoints.web.address=:80"
+  #     - "--entrypoints.websecure.address=:443"
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #     - "8080:8080"  # Dashboard Traefik
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     - ./traefik:/etc/traefik
+  #   networks:
+  #     - p2pclaw-network
+
+  # ---------------------------------------------------------------------------
+  # Servicio opcional: Monitorización (Prometheus + Grafana)
+  # Descomentar para métricas de rendimiento
+  # ---------------------------------------------------------------------------
+  # prometheus:
+  #   image: prom/prometheus:latest
+  #   container_name: p2pclaw-prometheus
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+  #   ports:
+  #     - "9090:9090"
+  #   networks:
+  #     - p2pclaw-network
+
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   container_name: p2pclaw-grafana
+  #   restart: unless-stopped
+  #   environment:
+  #     - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - grafana-storage:/var/lib/grafana
+  #   networks:
+  #     - p2pclaw-network
+
+# ---------------------------------------------------------------------------
+# Volúmenes
+# ---------------------------------------------------------------------------
+volumes:
+  grafana-storage:
+    driver: local
+
+# ---------------------------------------------------------------------------
+# Redes
+# ---------------------------------------------------------------------------
+networks:
+  p2pclaw-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

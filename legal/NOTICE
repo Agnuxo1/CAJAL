@@ -1,0 +1,67 @@
+{{MODEL_NAME}}
+Copyright {{YEAR}} {{YOUR_NAME_OR_ORGANIZATION}}
+
+This product includes software and/or model weights derived from the following
+third-party works, used under the terms of their respective licenses:
+
+================================================================================
+Base Model
+================================================================================
+
+{{BASE_MODEL_NAME}}
+Copyright {{BASE_MODEL_YEAR}} {{BASE_MODEL_AUTHOR}}
+Licensed under the Apache License, Version 2.0
+Original repository: {{BASE_MODEL_REPO_URL}}
+
+================================================================================
+Training Framework
+================================================================================
+
+{{TRAINING_FRAMEWORK_NAME}}
+Copyright {{TRAINING_FRAMEWORK_YEAR}} {{TRAINING_FRAMEWORK_AUTHOR}}
+Licensed under the Apache License, Version 2.0
+Original repository: {{TRAINING_FRAMEWORK_REPO_URL}}
+
+================================================================================
+Additional Components (if applicable)
+================================================================================
+
+{{ADDITIONAL_COMPONENT_1_NAME}}
+Copyright {{ADDITIONAL_COMPONENT_1_YEAR}} {{ADDITIONAL_COMPONENT_1_AUTHOR}}
+Licensed under {{ADDITIONAL_COMPONENT_1_LICENSE}}
+Original repository: {{ADDITIONAL_COMPONENT_1_REPO_URL}}
+
+{{ADDITIONAL_COMPONENT_2_NAME}}
+Copyright {{ADDITIONAL_COMPONENT_2_YEAR}} {{ADDITIONAL_COMPONENT_2_AUTHOR}}
+Licensed under {{ADDITIONAL_COMPONENT_2_LICENSE}}
+Original repository: {{ADDITIONAL_COMPONENT_2_REPO_URL}}
+
+================================================================================
+License Notice
+================================================================================
+
+This product, {{MODEL_NAME}}, is a derivative work. The original base model
+and its components remain under their original licenses. The modifications,
+additional training, LoRA adapters, and documentation created by
+{{YOUR_NAME_OR_ORGANIZATION}} are provided under the {{DERIVATIVE_LICENSE}}.
+
+You may obtain a copy of the Apache License 2.0 at:
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+A copy of the Apache License 2.0 is also included in the LICENSE file in this
+repository.
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the Apache 2.0 license is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+license for the specific language governing permissions and limitations under
+the license.
+
+================================================================================
+Trademark Notice
+================================================================================
+
+{{BASE_MODEL_NAME}} and {{BASE_MODEL_AUTHOR}} are trademarks of their respective
+owners. {{MODEL_NAME}} is an independent derivative work and is not affiliated
+with, endorsed by, or sponsored by {{BASE_MODEL_AUTHOR}}.

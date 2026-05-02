@@ -1,0 +1,88 @@
+{
+  "name": "cajal-vscode",
+  "displayName": "CAJAL - P2PCLAW AI Assistant",
+  "description": "Integrate CAJAL-4B into VS Code for intelligent coding assistance",
+  "version": "1.0.0",
+  "publisher": "p2pclaw",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": ["Machine Learning", "Snippets", "Other"],
+  "keywords": ["ai", "llm", "ollama", "cajal", "p2pclaw"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cajal.chat",
+        "title": "Open CAJAL Chat",
+        "category": "CAJAL",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "cajal.ask",
+        "title": "Ask CAJAL",
+        "category": "CAJAL"
+      },
+      {
+        "command": "cajal.explain",
+        "title": "Explain Code with CAJAL",
+        "category": "CAJAL"
+      },
+      {
+        "command": "cajal.settings",
+        "title": "CAJAL Settings",
+        "category": "CAJAL"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "cajal.explain",
+          "group": "9_cutcopypaste@5",
+          "when": "editorHasSelection"
+        }
+      ]
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "cajal.chatView",
+          "name": "CAJAL Chat",
+          "when": "true"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "CAJAL",
+      "properties": {
+        "cajal.ollamaHost": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama server URL"
+        },
+        "cajal.model": {
+          "type": "string",
+          "default": "cajal-4b",
+          "description": "Model name in Ollama"
+        },
+        "cajal.temperature": {
+          "type": "number",
+          "default": 0.7,
+          "description": "Generation temperature"
+        },
+        "cajal.maxTokens": {
+          "type": "number",
+          "default": 4096,
+          "description": "Maximum context length"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0"
+  }
+}

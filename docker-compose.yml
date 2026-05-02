@@ -1,0 +1,53 @@
+# CAJAL Training with Unsloth - Docker Setup
+# Run from WSL2 or native Linux with NVIDIA Docker
+
+services:
+  cajal-train:
+    image: unsloth/unsloth:latest
+    container_name: cajal-training
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_VISIBLE_DEVICES=0
+      - JUPYTER_PASSWORD=cajal2026
+    volumes:
+      # Mount model files
+      - D:/PROJECTS/CAJAL/Modelos originales:/workspace/models:ro
+      # Mount project files  
+      - D:/PROJECTS/CAJAL/scripts:/workspace/scripts
+      - D:/PROJECTS/CAJAL/datasets:/workspace/datasets
+      - D:/PROJECTS/CAJAL/cajal_dataset.jsonl:/workspace/cajal_dataset.jsonl:ro
+      # Mount outputs (read-write)
+      - D:/PROJECTS/CAJAL/outputs:/workspace/outputs
+    ports:
+      - "8888:8888"
+      - "8000:8000"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    # Run training via command line (alternative: use Jupyter at http://localhost:8888)
+    # Uncomment ONE of the training commands below:
+    command:
+      - bash
+      - -c
+      - |
+        echo "========================================"
+        echo "CAJAL Training Container Ready"
+        echo "========================================"
+        echo "Jupyter: http://localhost:8888 (password: cajal2026)"
+        echo ""
+        echo "Model files:"
+        ls -la /workspace/models/ || true
+        echo ""
+        echo "Dataset:"
+        ls -la /workspace/cajal_dataset.jsonl /workspace/datasets/ || true
+        echo ""
+        echo "To start training, run:"
+        echo "  bash /workspace/scripts/run_training.sh 27b"
+        echo ""
+        # Keep container running for interactive use
+        tail -f /dev/null

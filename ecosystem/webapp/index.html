@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAJAL — P2PCLAW Lab</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">🧠</span>
+                    <div class="logo-text">
+                        <h1>CAJAL</h1>
+                        <span>P2PCLAW Lab, Zurich</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-actions">
+                <button id="new-chat-btn" class="btn btn-primary">
+                    <span>+</span> New Chat
+                </button>
+            </div>
+            
+            <div class="conversations-list" id="conversations-list">
+                <!-- Conversations populated by JS -->
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="connection-status" id="connection-status">
+                    <span class="status-dot" id="status-dot"></span>
+                    <span id="status-text">Checking...</span>
+                </div>
+                <div class="model-info">
+                    <span id="model-name">cajal-4b</span>
+                    <button id="settings-btn" class="icon-btn">⚙️</button>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Chat Area -->
+        <main class="chat-area">
+            <div class="chat-header">
+                <button id="sidebar-toggle" class="icon-btn mobile-only">☰</button>
+                <h2 id="chat-title">New Chat</h2>
+                <div class="header-actions">
+                    <button id="export-btn" class="btn btn-ghost" title="Export conversation">📥</button>
+                    <button id="clear-btn" class="btn btn-ghost" title="Clear chat">🗑️</button>
+                </div>
+            </div>
+            
+            <div class="messages-container" id="messages-container">
+                <div class="welcome-screen" id="welcome-screen">
+                    <div class="welcome-content">
+                        <div class="welcome-icon">🧠</div>
+                        <h2>Welcome to CAJAL</h2>
+                        <p>I am a distinguished scientist at the P2PCLAW laboratory in Zurich, specializing in peer-to-peer network architectures, crypto-legal frameworks, and distributed systems.</p>
+                        <div class="suggestion-chips">
+                            <button class="chip" data-prompt="Explain the P2PCLAW protocol and its governance model">Explain P2PCLAW governance</button>
+                            <button class="chip" data-prompt="What are the main challenges in decentralized AI governance?">Decentralized AI challenges</button>
+                            <button class="chip" data-prompt="Describe the role of zero-knowledge proofs in P2P networks">Zero-knowledge proofs</button>
+                            <button class="chip" data-prompt="How does game theory apply to consensus mechanisms?">Game theory & consensus</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-area">
+                <div class="input-container">
+                    <textarea 
+                        id="message-input" 
+                        placeholder="Ask CAJAL anything about P2PCLAW, cryptography, or distributed systems..."
+                        rows="1"
+                    ></textarea>
+                    <button id="send-btn" class="send-btn" disabled>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <span>CAJAL-4B via Ollama • Local inference</span>
+                    <a href="https://p2pclaw.com/silicon" target="_blank">p2pclaw.com/silicon ↗</a>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Settings Modal -->
+        <div class="modal" id="settings-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Settings</h3>
+                    <button class="close-btn" id="close-settings">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label>Ollama Host</label>
+                        <input type="text" id="setting-host" value="http://localhost:11434">
+                    </div>
+                    <div class="setting-group">
+                        <label>Model</label>
+                        <input type="text" id="setting-model" value="cajal-4b">
+                    </div>
+                    <div class="setting-group">
+                        <label>Temperature: <span id="temp-value">0.7</span></label>
+                        <input type="range" id="setting-temp" min="0" max="2" step="0.1" value="0.7">
+                    </div>
+                    <div class="setting-group">
+                        <label>Top P: <span id="topp-value">0.9</span></label>
+                        <input type="range" id="setting-topp" min="0" max="1" step="0.05" value="0.9">
+                    </div>
+                    <div class="setting-group">
+                        <label>Context Length</label>
+                        <select id="setting-ctx">
+                            <option value="2048">2048</option>
+                            <option value="4096" selected>4096</option>
+                            <option value="8192">8192</option>
+                            <option value="16384">16384</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label>P2PCLAW Cloud Sync</label>
+                        <input type="text" id="setting-cloud" placeholder="https://p2pclaw.com/silicon" value="https://p2pclaw.com/silicon">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="save-settings">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
