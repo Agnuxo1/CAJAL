@@ -1,0 +1,40 @@
+{
+  "name": "cajal-p2pclaw",
+  "version": "1.0.0",
+  "description": "CAJAL-4B-P2PCLAW JavaScript/TypeScript SDK — Scientific intelligence for decentralized research networks",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "ai",
+    "llm",
+    "cajal",
+    "p2pclaw",
+    "scientific",
+    "agents",
+    "qwen",
+    "ollama",
+    "p2p"
+  ],
+  "author": "Francisco Angulo de Lafuente <lareliquia.angulo@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Agnuxo1/CAJAL.git"
+  },
+  "homepage": "https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW",
+  "bugs": {
+    "url": "https://github.com/Agnuxo1/CAJAL/issues"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
