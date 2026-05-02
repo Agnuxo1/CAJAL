@@ -36,7 +36,7 @@ from trl import SFTTrainer
 
 # Configuration
 MODEL_PATH = r"D:\PROJECTS\CAJAL\Modelos_originales\Qwen3.5-9B"
-DATASET_PATH = r"D:\PROJECTS\CAJAL\datasets\cajal_9b_agent_dataset.jsonl"
+DATASET_PATH = r"D:\PROJECTS\CAJAL\datasets\cajal_9b_mega_dataset.jsonl"
 SYSTEM_PROMPT_PATH = r"D:\PROJECTS\CAJAL\cajal_9b_system_prompt.txt"
 OUTPUT_DIR = r"D:\PROJECTS\CAJAL\outputs\CAJAL-9B"
 CHECKPOINT_DIR = os.path.join(OUTPUT_DIR, "checkpoints")
