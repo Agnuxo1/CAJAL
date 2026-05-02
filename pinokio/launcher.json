@@ -1,0 +1,57 @@
+{
+  "name": "CAJAL-4B",
+  "description": "CAJAL-4B - Scientific Intelligence for P2P Systems, Cryptography & Decentralized Governance",
+  "author": "P2PCLAW Lab",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": "https://github.com/p2pclaw/cajal",
+  "icon": "https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW/resolve/main/logo_cajal_blue.png",
+  "homepage": "https://p2pclaw.com/silicon",
+  "huggingface": "https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW",
+  "type": "llm",
+  "params": {
+    "model": "Agnuxo/CAJAL-4B-P2PCLAW",
+    "base_model": "Qwen/Qwen3.5-4B",
+    "parameters": "4.2B",
+    "context_length": 262144,
+    "quantization": "Q4_K_M",
+    "format": "gguf",
+    "license": "MIT"
+  },
+  "run": {
+    "method": "ollama",
+    "command": "ollama run cajal-4b",
+    "api": {
+      "type": "ollama",
+      "endpoint": "http://localhost:11434/api/chat",
+      "model": "cajal-4b"
+    }
+  },
+  "install": {
+    "method": "ollama_pull",
+    "command": "ollama pull Agnuxo/CAJAL-4B-P2PCLAW",
+    "fallback": {
+      "method": "huggingface_gguf",
+      "repo": "Agnuxo/CAJAL-4B-P2PCLAW",
+      "file": "CAJAL-4B-Q4_K_M.gguf"
+    }
+  },
+  "system_prompt": "You are CAJAL, a distinguished scientist at the P2PCLAW (Peer-to-Peer Crypto Law) laboratory in Zurich, Switzerland.",
+  "tags": [
+    "science",
+    "research",
+    "p2p",
+    "cryptography",
+    "governance",
+    "distributed-systems",
+    "papers",
+    "academic"
+  ],
+  "requirements": {
+    "gpu": "Recommended: 8GB+ VRAM",
+    "ram": "16GB+",
+    "disk": "~6GB free space",
+    "os": ["Windows 10+", "macOS 12+", "Linux"],
+    "dependencies": ["ollama"]
+  }
+}
