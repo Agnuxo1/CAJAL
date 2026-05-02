@@ -1,0 +1,39 @@
+name: cajal-p2pclaw
+version: '1.0.0'
+summary: Local scientific paper generation
+description: |
+  CAJAL-4B-P2PCLAW is an open-source language model specialized
+  in generating peer-reviewed quality scientific papers.
+  
+  Features:
+  - Local inference (no cloud required)
+  - 4.2B parameters
+  - 262K context window
+  - P2P architecture
+  
+grade: stable
+confinement: strict
+
+parts:
+  cajal:
+    plugin: python
+    source: .
+    python-packages:
+      - torch
+      - transformers
+      - fastapi
+      - uvicorn
+
+apps:
+  cajal:
+    command: bin/cajal
+    plugs:
+      - network
+      - home
+  
+  cajal-server:
+    command: bin/cajal-server
+    daemon: simple
+    plugs:
+      - network
+      - network-bind

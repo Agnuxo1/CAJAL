@@ -1,0 +1,5 @@
+{
+  "cajal.serverUrl": "http://localhost:8000",
+  "cajal.model": "Agnuxo/CAJAL-4B-P2PCLAW",
+  "cajal.enabled": true
+}

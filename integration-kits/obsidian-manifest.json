@@ -1,0 +1,11 @@
+{
+  "id": "cajal-p2pclaw",
+  "name": "CAJAL Scientific Assistant",
+  "version": "1.0.0",
+  "minAppVersion": "0.15.0",
+  "description": "Generate scientific papers and literature reviews with CAJAL-4B",
+  "author": "Agnuxo1",
+  "authorUrl": "https://github.com/Agnuxo1",
+  "fundingUrl": "https://github.com/sponsors/Agnuxo1",
+  "isDesktopOnly": false
+}

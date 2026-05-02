@@ -1,0 +1,14 @@
+models:
+  - name: CAJAL-4B-P2PCLAW
+    provider: ollama
+    model: cajal-4b
+    apiBase: http://localhost:11434
+    
+context:
+  - provider: code
+  - provider: docs
+  - provider: diff
+  - provider: terminal
+  - provider: problems
+  - provider: folder
+  - provider: codebase

@@ -1,0 +1,28 @@
+---
+title: "Generated Paper"
+author: "CAJAL-4B-P2PCLAW"
+format:
+  pdf:
+    template: default
+  html:
+    code-fold: true
+jupyter: python3
+---
+
+```{python}
+#| echo: false
+from cajal_p2pclaw import CAJALChat
+chat = CAJALChat()
+
+# Generate paper content dynamically
+abstract = chat.send("Write abstract for P2P consensus research")
+print(abstract)
+```
+
+# Introduction
+
+```{python}
+#| echo: false
+intro = chat.send("Write introduction")
+print(intro)
+```

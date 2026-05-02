@@ -1,0 +1,27 @@
+app-id: com.agnuxo1.Cajal
+runtime: org.freedesktop.Platform
+runtime-version: '23.08'
+sdk: org.freedesktop.Sdk
+command: cajal
+finish-args:
+  - --share=network
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --filesystem=home
+
+modules:
+  - name: python3-dependencies
+    buildsystem: simple
+    build-commands:
+      - pip3 install torch transformers fastapi uvicorn pydantic
+    
+  - name: cajal
+    buildsystem: simple
+    build-commands:
+      - pip3 install .
+    sources:
+      - type: git
+        url: https://github.com/Agnuxo1/CAJAL.git
+        tag: v1.0.0

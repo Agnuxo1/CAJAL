@@ -1,0 +1,36 @@
+name: Generate Paper with CAJAL
+
+on:
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: 'Research topic'
+        required: true
+      output_format:
+        description: 'Output format (pdf, md, latex)'
+        default: 'md'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup CAJAL
+        run: |
+          pip install cajal-p2pclaw
+          cajal-server --port 8000 &
+          sleep 10
+          
+      - name: Generate Paper
+        run: |
+          cajal generate-paper \
+            --topic "${{ github.event.inputs.topic }}" \
+            --format ${{ github.event.inputs.output_format }} \
+            --output paper.${{ github.event.inputs.output_format }}
+            
+      - name: Upload Paper
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-paper
+          path: paper.*
