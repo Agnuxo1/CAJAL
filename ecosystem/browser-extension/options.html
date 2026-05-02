@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0d1117;
+    color: #c9d1d9;
+    padding: 40px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+h1 { color: #f4a261; margin-bottom: 8px; }
+p { color: #8b949e; margin-bottom: 24px; }
+.form-group { margin-bottom: 20px; }
+label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; }
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    background: #0d1117;
+    color: #c9d1d9;
+    font-size: 14px;
+}
+input:focus { outline: none; border-color: #f4a261; }
+.btn {
+    padding: 12px 24px;
+    background: #f4a261;
+    color: #0d1117;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+.btn:hover { background: #e76f51; }
+.status { margin-top: 16px; padding: 12px; border-radius: 6px; font-size: 13px; }
+.status.success { background: #23863633; border: 1px solid #238636; }
+.status.error { background: #da363333; border: 1px solid #da3633; }
+</style>
+</head>
+<body>
+<h1>🧠 CAJAL Settings</h1>
+<p>Configure your CAJAL AI assistant connection</p>
+
+<div class="form-group">
+    <label for="host">Ollama Host</label>
+    <input type="text" id="host" value="http://localhost:11434" />
+</div>
+
+<div class="form-group">
+    <label for="model">Model Name</label>
+    <input type="text" id="model" value="cajal-4b" />
+</div>
+
+<div class="form-group">
+    <label for="temperature">Temperature (0.0 - 2.0)</label>
+    <input type="number" id="temperature" value="0.7" min="0" max="2" step="0.1" />
+</div>
+
+<div class="form-group">
+    <label for="maxTokens">Max Context Length</label>
+    <input type="number" id="maxTokens" value="4096" min="512" max="32768" step="512" />
+</div>
+
+<button class="btn" id="save">Save Settings</button>
+<button class="btn" id="test" style="margin-left: 8px; background: #58a6ff;">Test Connection</button>
+
+<div class="status" id="status" style="display: none;"></div>
+
+<script>
+document.getElementById('save').addEventListener('click', async () => {
+    const host = document.getElementById('host').value;
+    const model = document.getElementById('model').value;
+    const temperature = parseFloat(document.getElementById('temperature').value);
+    const maxTokens = parseInt(document.getElementById('maxTokens').value);
+    
+    await chrome.storage.sync.set({
+        cajalHost: host,
+        cajalModel: model,
+        cajalTemperature: temperature,
+        cajalMaxTokens: maxTokens
+    });
+    
+    showStatus('Settings saved successfully!', 'success');
+});
+
+document.getElementById('test').addEventListener('click', async () => {
+    const host = document.getElementById('host').value;
+    try {
+        const response = await fetch(`${host}/api/tags`, { method: 'GET' });
+        if (response.ok) {
+            showStatus('✅ Connected to Ollama successfully!', 'success');
+        } else {
+            showStatus('❌ Ollama responded with error: ' + response.status, 'error');
+        }
+    } catch (err) {
+        showStatus('❌ Cannot connect to Ollama at ' + host, 'error');
+    }
+});
+
+function showStatus(text, type) {
+    const status = document.getElementById('status');
+    status.textContent = text;
+    status.className = 'status ' + type;
+    status.style.display = 'block';
+}
+
+// Load current settings
+chrome.storage.sync.get(['cajalHost', 'cajalModel', 'cajalTemperature', 'cajalMaxTokens'], (result) => {
+    if (result.cajalHost) document.getElementById('host').value = result.cajalHost;
+    if (result.cajalModel) document.getElementById('model').value = result.cajalModel;
+    if (result.cajalTemperature) document.getElementById('temperature').value = result.cajalTemperature;
+    if (result.cajalMaxTokens) document.getElementById('maxTokens').value = result.cajalMaxTokens;
+});
+</script>
+</body>
+</html>

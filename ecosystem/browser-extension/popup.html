@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    width: 360px;
+    min-height: 480px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0d1117;
+    color: #c9d1d9;
+}
+.header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #0d2137 100%);
+    padding: 16px;
+    text-align: center;
+    border-bottom: 2px solid #f4a261;
+}
+.header h1 {
+    font-size: 18px;
+    color: #f4a261;
+    margin-bottom: 4px;
+}
+.header p {
+    font-size: 11px;
+    color: #8b949e;
+}
+.status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+    font-size: 12px;
+}
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #238636;
+    animation: pulse 2s infinite;
+}
+.status-dot.offline { background: #da3633; animation: none; }
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+.quick-actions {
+    padding: 12px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+.btn {
+    padding: 10px;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    background: #21262d;
+    color: #c9d1d9;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+    text-align: center;
+}
+.btn:hover {
+    background: #30363d;
+    border-color: #f4a261;
+}
+.chat-area {
+    padding: 12px 16px;
+    height: 240px;
+    overflow-y: auto;
+}
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.message.user {
+    background: #1f2937;
+    margin-left: 20px;
+}
+.message.assistant {
+    background: #1e3a5f;
+    margin-right: 20px;
+}
+.message .author {
+    font-weight: 600;
+    font-size: 11px;
+    margin-bottom: 4px;
+    color: #f4a261;
+}
+.input-area {
+    padding: 12px 16px;
+    border-top: 1px solid #30363d;
+    display: flex;
+    gap: 8px;
+}
+#input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    background: #0d1117;
+    color: #c9d1d9;
+    font-size: 13px;
+}
+#input:focus {
+    outline: none;
+    border-color: #f4a261;
+}
+#send {
+    padding: 10px 16px;
+    background: #f4a261;
+    color: #0d1117;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+}
+#send:hover { background: #e76f51; }
+.settings-link {
+    padding: 10px 16px;
+    text-align: center;
+    border-top: 1px solid #30363d;
+    font-size: 12px;
+}
+.settings-link a {
+    color: #58a6ff;
+    text-decoration: none;
+}
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>🧠 CAJAL</h1>
+    <p>P2PCLAW AI Assistant</p>
+</div>
+<div class="status-bar">
+    <div class="status-dot" id="statusDot"></div>
+    <span id="statusText">Checking...</span>
+</div>
+<div class="quick-actions">
+    <button class="btn" id="btnSummarize">Summarize Page</button>
+    <button class="btn" id="btnExplain">Explain Selection</button>
+    <button class="btn" id="btnSidebar">Open Sidebar</button>
+    <button class="btn" id="btnSettings">Settings</button>
+</div>
+<div class="chat-area" id="chatArea"></div>
+<div class="input-area">
+    <input type="text" id="input" placeholder="Ask CAJAL..." />
+    <button id="send">Send</button>
+</div>
+<div class="settings-link">
+    <a href="#" id="openSettings">Configure CAJAL Server →</a>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>

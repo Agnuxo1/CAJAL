@@ -1,70 +1,82 @@
-# CAJAL + Codex CLI Integration
+# Codex CLI Integration for CAJAL-4B
 
-> Codex CLI is OpenAI's official coding agent for the terminal.
+## Overview
 
-## Setup
+[OpenAI Codex CLI](https://github.com/openai/codex) supports custom model backends via the OpenAI-compatible API format. This guide configures Codex to use CAJAL-4B.
 
-### 1. Install Codex CLI
+## Prerequisites
 
 ```bash
+# Install Codex CLI
 npm install -g @openai/codex
+
+# Start CAJAL API server
+cajal-server --port 8765
 ```
 
-### 2. Configure for CAJAL (Local Mode)
+## Configuration
 
-Codex CLI supports custom providers via the OpenAI-compatible API:
+Set environment variables:
 
 ```bash
-# Set CAJAL as the backend
+# Bash / Zsh
 export OPENAI_BASE_URL=http://localhost:8765/v1
-export OPENAI_API_KEY=sk-cajal-local
+export OPENAI_API_KEY=dummy
+export CODEX_MODEL=cajal-4b
 
-# Run Codex with CAJAL
-codex --model cajal-4b
+# Windows PowerShell
+$env:OPENAI_BASE_URL = "http://localhost:8765/v1"
+$env:OPENAI_API_KEY = "dummy"
+$env:CODEX_MODEL = "cajal-4b"
 ```
 
-### 3. Using CAJAL with Codex
+Or create `~/.codex/config.yaml`:
+
+```yaml
+model: cajal-4b
+base_url: http://localhost:8765/v1
+api_key: dummy
+provider: openai-compatible
+```
+
+## Usage
 
 ```bash
-# Interactive mode
-codex --model cajal-4b
+# Start interactive session
+codex
 
-# Single command
-codex --model cajal-4b "Review this smart contract for vulnerabilities"
+# Run with prompt
+codex "Explain this codebase structure"
 
-# With file context
-codex --model cajal-4b -f contract.sol "Audit this contract"
+# Review code
+codex --review
 
-# Approval mode (recommended for CAJAL's rigorous analysis)
-codex --model cajal-4b --approval
+# With specific files
+codex src/main.py "Add error handling"
 ```
 
-### 4. CAJAL System Prompt for Codex
+## Custom Instructions
 
 Create `~/.codex/instructions.md`:
 
 ```markdown
-You are CAJAL, a distinguished scientist at the P2PCLAW laboratory in Zurich, Switzerland.
-
-When writing or reviewing code:
-1. Prioritize security and correctness over convenience
-2. Consider decentralization implications
-3. Use formal verification where applicable
+You are CAJAL, a distinguished scientist at the P2PCLAW laboratory.
+When writing code:
+1. Prioritize security and decentralization
+2. Use peer-to-peer patterns where appropriate
+3. Include consensus mechanism considerations
 4. Document cryptographic assumptions
-5. Analyze game-theoretic incentives
+5. Follow P2PCLAW protocol standards
 ```
-
-## Features
-
-| Feature | Command |
-|---------|---------|
-| Code generation | `codex "implement X"` |
-| Code review | `codex -f file.rs "review this"` |
-| Refactoring | `codex -f src/ "refactor for P2P"` |
-| Testing | `codex "write tests for X"` |
 
 ## Tips
 
-- Use `--approval` mode to review CAJAL's changes before applying
-- CAJAL is conservative — it may suggest more robust but verbose solutions
-- Combine with `git diff` to review all changes
+- CAJAL specializes in distributed systems — great for architecture review
+- Use `--approval-mode full-auto` for trusted operations
+- Use `--approval-mode suggest` for sensitive code changes
+
+## Links
+
+- Codex CLI: https://github.com/openai/codex
+- CAJAL: https://github.com/Agnuxo1/CAJAL
+- P2PCLAW: https://p2pclaw.com/silicon

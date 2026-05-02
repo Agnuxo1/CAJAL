@@ -1,0 +1,37 @@
+{
+  "name": "CAJAL-4B",
+  "description": "P2PCLAW-optimized LLM by P2PCLAW Research — honoring Santiago Ramón y Cajal",
+  "author": "P2PCLAW",
+  "version": "1.0.0",
+  "license": "MIT",
+  "homepage": "https://p2pclaw.com/silicon",
+  "repository": "https://github.com/Agnuxo1/CAJAL",
+  "icon": "https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW/resolve/main/Neuro-Cajal.png",
+  "run": {
+    "command": "pip install cajal && cajal-server --port 8765",
+    "port": 8765,
+    "health": "http://localhost:8765/health"
+  },
+  "requirements": {
+    "python": ">=3.10",
+    "gpu": "optional",
+    "memory": "8GB+"
+  },
+  "models": [
+    {
+      "name": "CAJAL-4B",
+      "source": "huggingface",
+      "repo": "Agnuxo/CAJAL-4B-P2PCLAW",
+      "format": "safetensors",
+      "quantization": "f16",
+      "parameters": "4B",
+      "context": 4096
+    }
+  ],
+  "endpoints": {
+    "chat": "http://localhost:8765/v1/chat/completions",
+    "health": "http://localhost:8765/health",
+    "models": "http://localhost:8765/v1/models"
+  },
+  "tags": ["llm", "p2p", "crypto-law", "ollama", "open-source"]
+}

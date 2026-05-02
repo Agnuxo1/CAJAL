@@ -1,0 +1,61 @@
+{
+  "manifest_version": 3,
+  "name": "CAJAL — P2PCLAW AI Assistant",
+  "short_name": "CAJAL",
+  "version": "1.0.0",
+  "description": "Integrate CAJAL-4B AI into any web page. Right-click to analyze, summarize, or ask questions.",
+  "author": "P2PCLAW Research",
+  "homepage_url": "https://p2pclaw.com/silicon",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "contextMenus",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://localhost:11434/*",
+    "http://localhost:8765/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "CAJAL AI Assistant"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+C",
+        "mac": "Command+Shift+C"
+      },
+      "description": "Open CAJAL popup"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["sidebar.html", "sidebar.js", "sidebar.css", "icons/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

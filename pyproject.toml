@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cajal"
+version = "1.0.0"
+description = "CAJAL-4B: P2PCLAW-optimized LLM — honoring Santiago Ramón y Cajal"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "P2PCLAW", email = "research@p2pclaw.com" }
+]
+keywords = ["llm", "ai", "p2p", "crypto-law", "ollama", "qwen", "cajal"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.31.0",
+    "flask>=2.3.0",
+]
+
+[project.optional-dependencies]
+native = [
+    "transformers>=4.40.0",
+    "torch>=2.1.0",
+    "huggingface-hub>=0.20.0",
+]
+server = [
+    "flask>=2.3.0",
+    "flask-cors>=4.0.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+all = [
+    "transformers>=4.40.0",
+    "torch>=2.1.0",
+    "huggingface-hub>=0.20.0",
+    "flask>=2.3.0",
+    "flask-cors>=4.0.0",
+]
+
+[project.scripts]
+cajal = "cajal.cli:main"
+cajal-server = "cajal.server:main"
+
+[project.urls]
+Homepage = "https://github.com/Agnuxo1/CAJAL"
+Documentation = "https://github.com/Agnuxo1/CAJAL#readme"
+Repository = "https://github.com/Agnuxo1/CAJAL"
+Issues = "https://github.com/Agnuxo1/CAJAL/issues"
+HuggingFace = "https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW"
+P2PCLAW = "https://p2pclaw.com/silicon"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cajal = ["templates/*", "assets/*"]
