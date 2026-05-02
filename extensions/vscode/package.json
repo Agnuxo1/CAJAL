@@ -1,0 +1,48 @@
+{
+  "name": "cajal-vscode",
+  "displayName": "CAJAL-4B P2PCLAW Intelligence",
+  "description": "Native CAJAL-4B integration for VS Code. Chat, generate, and analyze with scientific intelligence.",
+  "version": "1.0.0",
+  "publisher": "agnuxo1",
+  "engines": { "vscode": "^1.74.0" },
+  "categories": ["Machine Learning", "Snippets", "Other"],
+  "keywords": ["ai", "llm", "cajal", "p2pclaw", "scientific"],
+  "activationEvents": ["onCommand:cajal.chat", "onCommand:cajal.explain"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "cajal.chat", "title": "🧠 Chat with CAJAL", "category": "CAJAL" },
+      { "command": "cajal.explain", "title": "🧠 Explain Selection with CAJAL", "category": "CAJAL" },
+      { "command": "cajal.generate", "title": "🧠 Generate with CAJAL", "category": "CAJAL" }
+    ],
+    "menus": {
+      "editor/context": [
+        { "command": "cajal.explain", "group": "9_cutcopypaste@5" }
+      ]
+    },
+    "configuration": {
+      "title": "CAJAL",
+      "properties": {
+        "cajal.serverUrl": {
+          "type": "string",
+          "default": "http://localhost:8000",
+          "description": "CAJAL API server URL"
+        },
+        "cajal.model": {
+          "type": "string",
+          "default": "Agnuxo/CAJAL-4B-P2PCLAW",
+          "description": "Model ID"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "typescript": "^5.0.0",
+    "vsce": "^2.15.0"
+  }
+}

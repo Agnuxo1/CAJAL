@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { width: 380px; padding: 16px; font-family: system-ui, sans-serif; }
+    h1 { font-size: 16px; margin: 0 0 12px 0; color: #1a1a1a; }
+    textarea { width: 100%; height: 80px; margin-bottom: 8px; padding: 8px; border: 1px solid #ddd; border-radius: 6px; resize: vertical; }
+    button { width: 100%; padding: 10px; background: #0066ff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
+    button:hover { background: #0052cc; }
+    #response { margin-top: 12px; padding: 10px; background: #f5f5f5; border-radius: 6px; font-size: 13px; line-height: 1.5; max-height: 300px; overflow-y: auto; }
+    .status { font-size: 11px; color: #666; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <h1>🧠 CAJAL-4B Intelligence</h1>
+  <div class="status">Connected to: <span id="server">localhost:8000</span></div>
+  <textarea id="prompt" placeholder="Ask CAJAL anything about P2P networks, crypto, consensus..."></textarea>
+  <button id="send">Send to CAJAL</button>
+  <div id="response"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
