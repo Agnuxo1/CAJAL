@@ -110,3 +110,6 @@ ChatGPT*.png
 # Keep only ecosystem and configs from outputs
 outputs/*/CAJAL-4B-f16.gguf
 outputs/*/CAJAL-4B-q4_*.gguf
+
+# GitHub workflow secrets (if any)
+.github/secrets/

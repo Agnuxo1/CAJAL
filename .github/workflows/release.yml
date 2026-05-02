@@ -1,0 +1,63 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip build wheel
+          pip install requests flask flask-cors
+
+      - name: Build Python package
+        run: |
+          python -m build
+          ls dist/
+
+      - name: Package VS Code Extension
+        run: |
+          cd ecosystem/vscode-extension
+          npm install -g @vscode/vsce
+          vsce package --out ../../dist/cajal-vscode.vsix
+          cd ../..
+
+      - name: Package Browser Extension
+        run: |
+          cd ecosystem/browser-extension
+          zip -r ../../dist/cajal-browser-extension.zip .
+          cd ../..
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.whl
+            dist/*.tar.gz
+            dist/cajal-vscode.vsix
+            dist/cajal-browser-extension.zip
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
