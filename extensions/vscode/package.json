@@ -1,23 +1,53 @@
 {
-  "name": "cajal-vscode",
+  "name": "cajal-p2pclaw-vscode",
   "displayName": "CAJAL-4B P2PCLAW Intelligence",
   "description": "Native CAJAL-4B integration for VS Code. Chat, generate, and analyze with scientific intelligence.",
   "version": "1.0.0",
   "publisher": "agnuxo1",
-  "engines": { "vscode": "^1.74.0" },
-  "categories": ["Machine Learning", "Snippets", "Other"],
-  "keywords": ["ai", "llm", "cajal", "p2pclaw", "scientific"],
-  "activationEvents": ["onCommand:cajal.chat", "onCommand:cajal.explain"],
+  "engines": {
+    "vscode": "^1.118.0"
+  },
+  "categories": [
+    "Machine Learning",
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "llm",
+    "cajal",
+    "p2pclaw",
+    "scientific"
+  ],
+  "activationEvents": [
+    "onCommand:cajal.chat",
+    "onCommand:cajal.explain"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      { "command": "cajal.chat", "title": "🧠 Chat with CAJAL", "category": "CAJAL" },
-      { "command": "cajal.explain", "title": "🧠 Explain Selection with CAJAL", "category": "CAJAL" },
-      { "command": "cajal.generate", "title": "🧠 Generate with CAJAL", "category": "CAJAL" }
+      {
+        "command": "cajal.chat",
+        "title": "🧠 Chat with CAJAL",
+        "category": "CAJAL"
+      },
+      {
+        "command": "cajal.explain",
+        "title": "🧠 Explain Selection with CAJAL",
+        "category": "CAJAL"
+      },
+      {
+        "command": "cajal.generate",
+        "title": "🧠 Generate with CAJAL",
+        "category": "CAJAL"
+      }
     ],
     "menus": {
       "editor/context": [
-        { "command": "cajal.explain", "group": "9_cutcopypaste@5" }
+        {
+          "command": "cajal.explain",
+          "group": "9_cutcopypaste@5"
+        }
       ]
     },
     "configuration": {
@@ -41,8 +71,9 @@
     "package": "vsce package"
   },
   "devDependencies": {
-    "@types/vscode": "^1.74.0",
-    "typescript": "^5.0.0",
+    "@types/vscode": "^1.118.0",
+    "@vscode/vsce": "^3.9.1",
+    "typescript": "^5.9.3",
     "vsce": "^2.15.0"
   }
 }
