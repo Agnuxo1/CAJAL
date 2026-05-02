@@ -1,62 +1,54 @@
-# CAJAL Integration PR Template
+## CAJAL Integration Proposal
 
-## Add CAJAL-4B-P2PCLAW Support — Local Scientific Paper Generation
-
-### What is CAJAL?
-**CAJAL-4B-P2PCLAW** is the first open-source, local language model specialized in generating peer-reviewed quality scientific papers. 
-
-- **4.2B parameters** (Qwen3.5-4B fine-tuned)
-- **262K context window** — handles full papers + references
-- **100% local** — no API keys, no cloud, no data leaves your machine
-- **MIT License** — free forever
-- **P2P Architecture** — native decentralized networking
-
-### Why integrate CAJAL with [PROJECT_NAME]?
-
-[PROJECT_NAME] users can now:
-- ✅ Generate scientific papers locally without sending data to third parties
-- ✅ Create literature reviews from their existing [PROJECT_NAME] libraries
-- ✅ Maintain complete privacy for sensitive research
-- ✅ Access paper generation even offline
-- ✅ Save thousands in API costs
-
-### Integration Details
-
-This PR adds:
-- [ ] Configuration file for CAJAL connection
-- [ ] Documentation for setup and usage
-- [ ] Example workflows for paper generation
-- [ ] Test cases
-
-### Installation
-
-```bash
-# One-line install
-pip install cajal-p2pclaw
-
-# Or with Docker
-docker run -p 8000:8000 agnuxo1/cajal-server:latest
-
-# Or with Ollama
-ollama pull Agnuxo/CAJAL-4B-P2PCLAW
-```
-
-### Links
-- **Model**: https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW
-- **Code**: https://github.com/Agnuxo1/CAJAL
-- **PyPI**: https://pypi.org/project/cajal-p2pclaw/
-- **Docs**: https://www.p2pclaw.com/silicon
-
-### Testing
-- [ ] Verified integration works with local CAJAL server
-- [ ] Tested paper generation pipeline
-- [ ] Confirmed no external API dependencies
-
-### Author
-**Francisco Angulo de Lafuente** (Agnuxo1) — P2PCLAW Laboratory
-- ORCID: 0009-0001-1634-7063
-- Contact: lareliquia.angulo@gmail.com
+**Project:** CAJAL (Cognitive Academic Journal Authoring Layer)  
+**Repository:** https://github.com/Agnuxo1/CAJAL  
+**License:** MIT  
+**Status:** Free, open-source, no strings attached
 
 ---
 
-**License**: MIT (same as [PROJECT_NAME])
+### What is CAJAL?
+
+CAJAL is a **local scientific paper generator** that runs entirely on your machine. No API keys. No cloud. No cost.
+
+- Generate publication-ready papers with real citations
+- 7-section structure (Abstract → Introduction → Methods → Results → Discussion → Conclusion → References)
+- 8-10 LLM judges evaluate quality (tribunal scoring)
+- Works with any Ollama-compatible model
+
+### Why Integrate?
+
+This PR adds native CAJAL support to your project — **completely free**, no conditions:
+
+| What You Get | Benefit |
+|-------------|---------|
+| 🎁 Integration kit | One config file, zero dependencies |
+| 🧠 Paper generation | Users write papers without leaving your tool |
+| 🔒 100% local | No data leaves the user's machine |
+| 📄 Real citations | arXiv + CrossRef integration |
+| ⚡ Zero cost | MIT license, no upsells |
+
+### The Gift Economy
+
+We're not selling anything. CAJAL is funded by GitHub Sponsors, not VCs. Our mission: make scientific writing accessible to everyone, everywhere.
+
+### What's Included
+
+- [ ] Integration config (see `integrations/{{PLATFORM}}/{{FILE}}`)
+- [ ] Documentation update (README badge + usage example)
+- [ ] Test case (if applicable)
+
+### Try It
+
+```bash
+pip install cajal-p2pclaw
+ollama create cajal -f Modelfile
+```
+
+Or try the live demo: https://www.p2pclaw.com/silicon
+
+---
+
+**Created by:** Francisco Angulo de Lafuente (@Agnuxo1)  
+**Organization:** P2PCLAW Research Network  
+**Contact:** https://github.com/Agnuxo1/CAJAL/issues
