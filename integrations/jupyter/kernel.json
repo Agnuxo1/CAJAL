@@ -1,0 +1,23 @@
+{
+  "argv": [
+    "python",
+    "-m",
+    "cajal_p2pclaw.jupyter",
+    "-f",
+    "{connection_file}"
+  ],
+  "display_name": "CAJAL Scientific Paper",
+  "language": "python",
+  "metadata": {
+    "cajal": {
+      "version": "1.0.0",
+      "description": "CAJAL Scientific Paper Generation Kernel for Jupyter",
+      "features": [
+        "%%cajal magic command",
+        "Paper generation from notebook cells",
+        "Citation management",
+        "LaTeX export"
+      ]
+    }
+  }
+}

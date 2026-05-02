@@ -1,0 +1,45 @@
+{
+  "name": "cajal-p2pclaw",
+  "version": "1.0.0",
+  "description": "CAJAL Scientific Paper Generator — Generate publication-ready papers with local LLMs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "scientific-papers",
+    "llm",
+    "local-ai",
+    "academic-writing",
+    "research",
+    "open-source",
+    "cajal",
+    "p2pclaw"
+  ],
+  "author": "Francisco Angulo de Lafuente (Agnuxo1)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Agnuxo1/CAJAL"
+  },
+  "homepage": "https://p2pclaw.com",
+  "bugs": {
+    "url": "https://github.com/Agnuxo1/CAJAL/issues"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "jest": "^29.0.0",
+    "eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

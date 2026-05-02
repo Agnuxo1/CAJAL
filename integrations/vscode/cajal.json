@@ -1,0 +1,91 @@
+# CAJAL VS Code Configuration
+# Add to .vscode/settings.json or workspace settings
+
+{
+  "cajal.enabled": true,
+  "cajal.model": "ollama/cajal",
+  "cajal.apiBase": "http://localhost:11434",
+  "cajal.defaultFormat": "markdown",
+  "cajal.temperature": 0.3,
+  "cajal.maxTokens": 8192,
+  "cajal.contextWindow": 32768,
+  
+  "cajal.paperStructure": {
+    "sections": [
+      "Abstract",
+      "Introduction", 
+      "Related Work",
+      "Methodology",
+      "Results",
+      "Discussion",
+      "Conclusion",
+      "References"
+    ],
+    "minReferences": 8,
+    "abstractLength": [150, 250],
+    "citationFormat": "[Author, Year]"
+  },
+
+  "cajal.commands": {
+    "generatePaper": {
+      "title": "CAJAL: Generate Scientific Paper",
+      "description": "Generate a complete paper from research idea",
+      "prompt": "Generate a complete scientific paper on: {topic}. Include all standard sections with real citations."
+    },
+    "writeAbstract": {
+      "title": "CAJAL: Write Abstract",
+      "description": "Generate paper abstract (150-250 words)",
+      "prompt": "Write an academic abstract for: {topic}. 150-250 words. Include background, methods, results, conclusion."
+    },
+    "writeMethods": {
+      "title": "CAJAL: Write Methodology",
+      "description": "Generate detailed methods section",
+      "prompt": "Write a detailed, reproducible methodology section for: {topic}."
+    },
+    "findReferences": {
+      "title": "CAJAL: Find References",
+      "description": "Suggest relevant academic references",
+      "prompt": "Suggest 8-12 relevant references for: {topic}. Include DOI/arXiv IDs."
+    },
+    "reviewPaper": {
+      "title": "CAJAL: Review Paper",
+      "description": "Review and improve paper draft",
+      "prompt": "Review this paper draft and suggest improvements: {text}"
+    }
+  },
+
+  "cajal.templates": {
+    "paper": {
+      "frontmatter": {
+        "title": "",
+        "authors": [],
+        "keywords": [],
+        "date": "",
+        "venue": ""
+      },
+      "body": [
+        "Abstract",
+        "Introduction",
+        "Related Work",
+        "Methodology",
+        "Results",
+        "Discussion",
+        "Conclusion",
+        "References"
+      ]
+    },
+    "abstract": {
+      "minWords": 150,
+      "maxWords": 250,
+      "requiredElements": ["background", "methods", "results", "conclusion"]
+    }
+  },
+
+  "cajal.keybindings": {
+    "generatePaper": "ctrl+shift+p",
+    "writeAbstract": "ctrl+shift+a",
+    "findReferences": "ctrl+shift+r"
+  },
+
+  "cajal.outputFormats": ["markdown", "latex", "pdf", "docx"]
+}

@@ -1,0 +1,118 @@
+# CAJAL Integration for Continue.dev
+# https://continue.dev
+# 
+# Installation:
+# 1. Install Continue.dev extension in VS Code or JetBrains
+# 2. Copy this file to ~/.continue/config.yaml (or use Continue UI)
+# 3. Reload the extension
+
+name: CAJAL Scientific Paper Generator
+version: 1.0.0
+
+models:
+  - name: cajal-paper
+    provider: ollama
+    model: cajal
+    apiBase: http://localhost:11434
+    systemMessage: |
+      You are CAJAL, a scientific paper authoring assistant. 
+      Generate structured academic papers with real citations.
+      Always include: Abstract, Introduction, Methods, Results, Discussion, Conclusion, References.
+    
+  - name: cajal-local-llm
+    provider: ollama
+    model: llama3.1
+    apiBase: http://localhost:11434
+    systemMessage: |
+      You are CAJAL (Cognitive Academic Journal Authoring Layer).
+      Generate publication-ready scientific papers with proper academic structure.
+
+  - name: cajal-claude
+    provider: anthropic
+    model: claude-3-sonnet-20240229
+    systemMessage: |
+      You are CAJAL, specialized in scientific paper generation.
+      Generate rigorous, well-cited academic papers.
+
+tabAutocompleteModel:
+  name: cajal-autocomplete
+  provider: ollama
+  model: cajal
+  apiBase: http://localhost:11434
+
+context:
+  - provider: codebase
+  - provider: docs
+  - provider: problems
+  - provider: terminal
+
+slashCommands:
+  - name: generate-paper
+    description: Generate a full scientific paper from a research idea
+    prompt: |
+      Generate a complete scientific paper on the following topic.
+      Include: Abstract, Introduction, Related Work, Methodology, Results, Discussion, Conclusion, and References.
+      Use formal academic tone and real citations where possible.
+      
+      Topic: {{{{ input }}}}
+
+  - name: write-abstract
+    description: Write a paper abstract (150-250 words)
+    prompt: |
+      Write a concise academic abstract (150-250 words) for:
+      {{{{ input }}}}
+      Include: background, methods, key results, and conclusion.
+
+  - name: find-references
+    description: Suggest relevant academic references
+    prompt: |
+      Suggest 8-12 relevant academic references for the topic: {{{{ input }}}}
+      Include: author, year, title, venue, and DOI/arXiv ID if known.
+      Prioritize recent (2020+) and seminal works.
+
+  - name: write-methods
+    description: Generate a detailed methodology section
+    prompt: |
+      Write a detailed, reproducible methodology section for:
+      {{{{ input }}}}
+      Include: materials, procedures, parameters, datasets, and evaluation metrics.
+
+  - name: paper-review
+    description: Review a paper draft and suggest improvements
+    prompt: |
+      Review the following paper draft. Evaluate:
+      1. Structure and organization
+      2. Clarity and precision
+      3. Methodological soundness
+      4. Citation quality
+      5. Argument strength
+      6. Suggest specific improvements
+      
+      Draft: {{{{ input }}}}
+
+customCommands:
+  - name: cajal-pdf
+    description: Export current paper to PDF format
+    prompt: |
+      Format the following paper for PDF export with LaTeX-compatible markdown:
+      {{{{ input }}}}
+
+  - name: cajal-latex
+    description: Convert paper to LaTeX format
+    prompt: |
+      Convert the following paper to standard LaTeX article format:
+      {{{{ input }}}}
+
+embeddings:
+  provider: ollama
+  model: nomic-embed-text
+  apiBase: http://localhost:11434
+
+reranker:
+  provider: ollama
+  model: cajal
+  apiBase: http://localhost:11434
+
+docs:
+  - name: cajal-docs
+    startUrl: https://github.com/Agnuxo1/CAJAL

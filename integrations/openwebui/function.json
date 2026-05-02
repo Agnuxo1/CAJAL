@@ -1,0 +1,22 @@
+{
+  "name": "cajal-paper-generator",
+  "version": "1.0.0",
+  "description": "CAJAL Scientific Paper Generator for Open WebUI",
+  "author": "P2PCLAW Research Network",
+  "license": "MIT",
+  "requirements": [],
+  "env": {
+    "CAJAL_MODEL": {
+      "description": "Ollama model name for CAJAL",
+      "value": "cajal"
+    },
+    "CAJAL_TEMPERATURE": {
+      "description": "Generation temperature",
+      "value": "0.3"
+    },
+    "CAJAL_MAX_TOKENS": {
+      "description": "Maximum tokens per generation",
+      "value": "8192"
+    }
+  }
+}

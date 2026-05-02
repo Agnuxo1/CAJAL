@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAJAL — Free Scientific Paper Generator</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      color: white;
+    }
+    .hero h1 {
+      font-size: 64px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    .hero .tagline {
+      font-size: 24px;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+    .hero .badges {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .badge {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 16px 40px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: white;
+      color: #667eea;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+    .btn-secondary:hover {
+      background: white;
+      color: #667eea;
+    }
+    .features {
+      background: white;
+      border-radius: 20px;
+      padding: 60px 40px;
+      margin: 40px 0;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+    .features h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 50px;
+      color: #333;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+    }
+    .feature {
+      text-align: center;
+      padding: 30px;
+    }
+    .feature-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    .feature h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #667eea;
+    }
+    .feature p {
+      color: #666;
+      font-size: 16px;
+    }
+    .integrations {
+      background: #f8f9fa;
+      border-radius: 20px;
+      padding: 60px 40px;
+      margin: 40px 0;
+    }
+    .integrations h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    .integrations p {
+      text-align: center;
+      color: #666;
+      margin-bottom: 50px;
+      font-size: 18px;
+    }
+    .integration-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .integration {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
+    .integration:hover {
+      transform: translateY(-5px);
+    }
+    .integration-logo {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .integration-name {
+      font-weight: 700;
+      font-size: 16px;
+      color: #333;
+    }
+    .integration-type {
+      font-size: 13px;
+      color: #888;
+      margin-top: 5px;
+    }
+    .stats {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      padding: 60px 40px;
+      margin: 40px 0;
+      color: white;
+      text-align: center;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .stat {
+      padding: 20px;
+    }
+    .stat-number {
+      font-size: 48px;
+      font-weight: 800;
+      display: block;
+    }
+    .stat-label {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-top: 10px;
+    }
+    .code-section {
+      background: #1a1a2e;
+      border-radius: 20px;
+      padding: 60px 40px;
+      margin: 40px 0;
+      color: white;
+    }
+    .code-section h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+    .code-block {
+      background: #16213e;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 20px 0;
+      overflow-x: auto;
+    }
+    .code-block pre {
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #e94560;
+    }
+    .code-block .comment { color: #6c757d; }
+    .code-block .string { color: #2ecc71; }
+    .code-block .keyword { color: #e94560; }
+    .code-block .function { color: #3498db; }
+    .footer {
+      text-align: center;
+      padding: 60px 20px;
+      color: white;
+    }
+    .footer a {
+      color: white;
+      text-decoration: underline;
+      opacity: 0.9;
+    }
+    .footer a:hover {
+      opacity: 1;
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 40px; }
+      .hero .tagline { font-size: 18px; }
+      .features, .integrations, .code-section { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>🧠 CAJAL</h1>
+      <p class="tagline">Generate publication-ready scientific papers — entirely on your local machine. Free. Open source. No cloud.</p>
+      <div class="badges">
+        <span class="badge">🔒 100% Local</span>
+        <span class="badge">🆓 MIT License</span>
+        <span class="badge">🤖 Works with Any LLM</span>
+        <span class="badge">📄 Real Citations</span>
+      </div>
+      <div class="cta-buttons">
+        <a href="https://github.com/Agnuxo1/CAJAL" class="btn btn-primary">⭐ Star on GitHub</a>
+        <a href="#install" class="btn btn-secondary">📦 Install Now</a>
+      </div>
+    </section>
+
+    <section class="features">
+      <h2>Why CAJAL?</h2>
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="feature-icon">🏠</div>
+          <h3>Runs Locally</h3>
+          <p>Your research ideas never leave your machine. No API keys. No subscriptions. Complete privacy.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📚</div>
+          <h3>Real Citations</h3>
+          <p>Integrates with arXiv and CrossRef to find and cite actual academic papers — no hallucinated references.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⚖️</div>
+          <h3>Tribunal Scoring</h3>
+          <p>8-10 LLM judges evaluate each paper on 10 dimensions. Like peer review, but instant and free.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔌</div>
+          <h3>100+ Integrations</h3>
+          <p>Native kits for LangChain, CrewAI, AutoGen, Ollama, VS Code, Jupyter, and 100+ more platforms.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📄</div>
+          <h3>Publication Ready</h3>
+          <p>Structured 7-section papers with proper academic formatting. Export to Markdown, LaTeX, or PDF.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <h3>Zero Cost</h3>
+          <p>Completely free. MIT license. Funded by GitHub Sponsors, not venture capital. A genuine public good.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="integrations">
+      <h2>Native Integrations</h2>
+      <p>One config file. Zero dependencies. Works everywhere.</p>
+      <div class="integration-grid">
+        <div class="integration">
+          <div class="integration-logo">🦙</div>
+          <div class="integration-name">Ollama</div>
+          <div class="integration-type">Modelfile</div>
+        </div>
+        <div class="integration">
+          <div class="integration-logo">🔗</div>
+          <div class="integration-name">LangChain</div>
+          <div class="integration-type">LLM Wrapper</div>
+        </div>
+        <div class="integration">
+          <div class="integration-logo">👥</div>
+          <div class="integration-name">CrewAI</div>
+          <div class="integration-type">Agent Tool</div>
+        </div>
+        <div class="integration">
+          <div class="integration-logo">🤖</div>
+          <div class="integration-name">AutoGen</div>
+          <div class="integration-type">Multi-Agent</div>
+        </div>
+        <div class="integration">
+          <div class="integration-logo">🦙</div>
+          <div class="integration-name">LlamaIndex</div>
+          <div class="integration-type">Query Engine</div>
+        </div>
+        <div class="integration">
+          <div class="integration-logo">💻</div>
+          <div class="integration-name">VS Code</div>
+          <div class="integration-type">Extension</div>
+        </div>
+        <div class="integration">
+          <div class="integration-logo">🔄</div>
+          <div class="integration-name">Continue.dev</div>
+          <div class="integration-type">Config</div>
+        </div>
+        <div class="integration">
+          <div class="integration-logo">📓</div>
+          <div class="integration-name">Jupyter</div>
+          <div class="integration-type">Kernel</div>
+        </div>
+        <div class="integration">
+          <div class="integration-logo">📊</div>
+          <div class="integration-name">Quarto</div>
+          <div class="integration-type">Filter</div>
+        </div>
+        <div class="integration">
+          <div class="integration-logo">🌐</div>
+          <div class="integration-name">Open WebUI</div>
+          <div class="integration-type">Function</div>
+        </div>
+        <div class="integration">
+          <div class="integration-logo">🐳</div>
+          <div class="integration-name">Docker</div>
+          <div class="integration-type">Compose</div>
+        </div>
+        <div class="integration">
+          <div class="integration-logo">🎯</div>
+          <div class="integration-name">+88 more</div>
+          <div class="integration-type">See GitHub</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <h2>By the Numbers</h2>
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-number">100+</span>
+          <span class="stat-label">Integration Kits</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">0</span>
+          <span class="stat-label">API Cost</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">7</span>
+          <span class="stat-label">Paper Sections</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">8-10</span>
+          <span class="stat-label">LLM Judges</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="code-section" id="install">
+      <h2>Get Started in 30 Seconds</h2>
+      
+      <div class="code-block">
+        <pre><span class="comment"># 1. Install CAJAL</span>
+<span class="keyword">pip</span> install cajal-p2pclaw
+
+<span class="comment"># 2. Create the Ollama model</span>
+<span class="keyword">ollama</span> create cajal -f Modelfile
+
+<span class="comment"># 3. Generate your first paper</span>
+<span class="function">python</span> -c <span class="string">"from cajal_p2pclaw import PaperGenerator; \
+PaperGenerator().generate('Quantum error correction')"</span></pre>
+      </div>
+
+      <div class="code-block">
+        <pre><span class="comment"># Or use the JavaScript SDK</span>
+<span class="keyword">npm</span> install cajal-p2pclaw
+
+<span class="keyword">import</span> { CAJAL } <span class="keyword">from</span> <span class="string">'cajal-p2pclaw'</span>;
+
+<span class="keyword">const</span> cajal = <span class="keyword">new</span> CAJAL();
+<span class="keyword">const</span> paper = <span class="keyword">await</span> cajal.generatePaper({
+  topic: <span class="string">'Neural architecture search'</span>,
+  format: <span class="string">'markdown'</span>
+});
+
+console.log(paper);</pre>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>
+        <strong>CAJAL</strong> — Built by the <a href="https://p2pclaw.com">P2PCLAW Research Network</a><br>
+        Created by <a href="https://github.com/Agnuxo1">Francisco Angulo de Lafuente</a> (@Agnuxo1)<br><br>
+        <a href="https://github.com/Agnuxo1/CAJAL">GitHub</a> • 
+        <a href="https://pypi.org/project/cajal-p2pclaw">PyPI</a> • 
+        <a href="https://huggingface.co/Agnuxo">HuggingFace</a> • 
+        <a href="https://www.p2pclaw.com/silicon">Paper Generator</a>
+      </p>
+      <p style="margin-top: 30px; font-size: 14px; opacity: 0.8;">
+        MIT License • A public good, not a product
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

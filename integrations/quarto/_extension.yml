@@ -1,0 +1,13 @@
+title: CAJAL Scientific Paper Filter
+author: P2PCLAW Research Network
+version: 1.0.0
+quarto-required: ">=1.4.0"
+contributes:
+  filters:
+    - cajal-filter.lua
+  formats:
+    pdf:
+      template-partials:
+        - cajal-template.tex
+    html:
+      css: cajal.css

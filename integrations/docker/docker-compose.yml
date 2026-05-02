@@ -1,0 +1,42 @@
+services:
+  cajal:
+    image: ollama/ollama:latest
+    container_name: cajal-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    restart: unless-stopped
+    
+  cajal-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: cajal-api
+    ports:
+      - "8000:8000"
+    environment:
+      - OLLAMA_HOST=http://cajal:11434
+      - CAJAL_MODEL=cajal
+      - CAJAL_TEMPERATURE=0.3
+    depends_on:
+      - cajal
+    restart: unless-stopped
+    
+  cajal-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: cajal-web
+    ports:
+      - "3000:3000"
+    environment:
+      - CAJAL_API_URL=http://cajal-api:8000
+    depends_on:
+      - cajal-api
+    restart: unless-stopped
+
+volumes:
+  ollama:

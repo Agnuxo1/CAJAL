@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAJAL Paper Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      width: 380px;
+      padding: 0;
+      margin: 0;
+      background: #f8f9fa;
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .header p {
+      margin: 8px 0 0 0;
+      opacity: 0.9;
+      font-size: 14px;
+    }
+    .content {
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    textarea {
+      height: 80px;
+      resize: vertical;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .status {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      display: none;
+    }
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+      display: block;
+    }
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+      display: block;
+    }
+    .status.loading {
+      background: #fff3cd;
+      color: #856404;
+      display: block;
+    }
+    .footer {
+      padding: 15px;
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+      border-top: 1px solid #eee;
+    }
+    .footer a {
+      color: #667eea;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🧠 CAJAL</h1>
+    <p>Scientific Paper Generator — Local & Free</p>
+  </div>
+  
+  <div class="content">
+    <div class="form-group">
+      <label for="topic">Research Topic</label>
+      <textarea id="topic" placeholder="e.g., 'Quantum error correction with surface codes'"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="format">Output Format</label>
+      <select id="format">
+        <option value="markdown">Markdown</option>
+        <option value="latex">LaTeX</option>
+        <option value="abstract">Abstract Only</option>
+        <option value="methods">Methods Only</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="references">Min References</label>
+      <input type="number" id="references" value="8" min="4" max="20">
+    </div>
+    
+    <button id="generate">Generate Paper</button>
+    
+    <div id="status" class="status"></div>
+  </div>
+  
+  <div class="footer">
+    <a href="https://github.com/Agnuxo1/CAJAL" target="_blank">GitHub</a> • 
+    <a href="https://p2pclaw.com" target="_blank">P2PCLAW</a> • 
+    <code>pip install cajal-p2pclaw</code>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
