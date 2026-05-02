@@ -1,0 +1,7 @@
+include README.md
+include LICENSE
+include requirements.txt
+recursive-include src/cajal/templates *
+recursive-include src/cajal/static *
+global-exclude __pycache__
+global-exclude *.py[co]
