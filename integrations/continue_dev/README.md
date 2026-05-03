@@ -1,49 +1,96 @@
-## CAJAL Integration for Continue.dev
+# CAJAL Integration for Continue.dev
 
-Run CAJAL paper generation directly inside Continue.dev with custom `.prompt` files.
+## Quick Setup
 
-### Setup
+### 1. Install Continue.dev
+[continue.dev](https://continue.dev) — Free, open-source AI coding assistant
 
-1. Install Continue.dev: https://continue.dev
-2. Add this to your `config.yaml`:
+### 2. Add CAJAL Commands
+
+Create or edit `~/.continue/config.yaml`:
 
 ```yaml
 customCommands:
   - name: "paper"
-    description: "Generate a scientific paper with CAJAL"
+    description: "Generate scientific paper with CAJAL"
     prompt: |
-      You are CAJAL, a scientific paper generator. 
-      Generate a 7-section paper on: {input}
+      You are CAJAL, a scientific paper generator.
       
-      Sections: Abstract, Introduction, Related Work, Methodology, Results, Discussion, Conclusion.
-      Include real arXiv citations.
-      After drafting, score each section 0-10 as a peer reviewer.
-      Rewrite sections scoring <7. Max 3 iterations.
-    
+      Task: Generate a complete 7-section paper on: {input}
+      
+      Structure:
+      1. Abstract (250 words)
+      2. Introduction (500 words)
+      3. Related Work (400 words, 8-10 citations)
+      4. Methodology (600 words)
+      5. Results (400 words)
+      6. Discussion (500 words)
+      7. Conclusion (250 words)
+      
+      Rules:
+      - Use real arXiv citations
+      - Academic tone
+      - Include tribunal scoring after draft
+      
   - name: "tribunal"
-    description: "Peer-review an existing paper"
+    description: "Peer-review current document"
     prompt: |
       You are a peer review tribunal with 3 independent reviewers.
-      Review this paper section by section:
+      
+      Review this text section by section:
       {input}
       
-      Each reviewer scores 0-10 with detailed feedback.
-      Flag sections needing revision.
+      Each reviewer must:
+      1. Score 0-10
+      2. Provide specific feedback
+      3. Flag issues
+      
+      Consensus rule: 2/3 reviewers must score ≥7
 ```
 
-3. Use `/paper "quantum computing"` in any chat
-4. Or `/tribunal` to review existing text
+### 3. Use Commands
 
-### Model Configuration
+In any editor with Continue.dev:
+- `Ctrl+Shift+L` → type `/paper "quantum computing"`
+- `Ctrl+Shift+L` → type `/tribunal` to review selected text
+
+### 4. Ollama Model Setup
+
+```bash
+# Pull CAJAL model
+ollama pull cajal-p2pclaw
+
+# Or run directly
+ollama run cajal-p2pclaw
+```
+
+### 5. Continue.dev Model Config
 
 ```yaml
 models:
   - name: CAJAL
     provider: ollama
     model: cajal-p2pclaw
+    apiBase: http://localhost:11434
 ```
 
-### Links
-- CAJAL Repo: https://github.com/Agnuxo1/CAJAL
-- PyPI: https://pypi.org/project/cajal-p2pclaw/
+## Features
+
+| Feature | Status |
+|---------|--------|
+| Paper generation | ✅ Via `/paper` command |
+| Peer review | ✅ Via `/tribunal` command |
+| Real citations | ✅ arXiv integration |
+| LaTeX output | 🚧 Coming soon |
+| Local execution | ✅ 100% offline |
+
+## Links
+
+- CAJAL: https://github.com/Agnuxo1/CAJAL
 - Paper: https://arxiv.org/pdf/2604.19792
+- PyPI: https://pypi.org/project/cajal-p2pclaw/
+- Continue.dev: https://continue.dev
+
+---
+
+**Want another integration?** Open an issue at https://github.com/Agnuxo1/CAJAL/issues
