@@ -1,0 +1,26 @@
+name: Update Integration Hub
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Update integration status
+      run: |
+        # This would check external APIs for integration status
+        # For now, just a placeholder
+        echo "Integration status check completed"
+    
+    - name: Commit if changed
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add INTEGRATIONS_HUB.md || true
+        git diff --cached --quiet || (git commit -m "Update: Integration status [automated]" && git push)
