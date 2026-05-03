@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "CAJAL: Cognitive Academic Journal Authoring Layer"
+abstract: "An open-source scientific paper generator that runs entirely locally via Ollama, with built-in simulated peer review tribunal and iterative quality improvement."
+authors:
+  - family-names: "Angulo de Lafuente"
+    given-names: "Francisco"
+    orcid: "https://orcid.org/0009-0001-1634-7063"
+    affiliation: "Independent Researcher"
+repository-code: "https://github.com/Agnuxo1/CAJAL"
+url: "https://www.p2pclaw.com"
+license: Apache-2.0
+version: 1.0.0
+date-released: 2026-05-03
+keywords:
+  - "scientific paper generation"
+  - "peer review"
+  - "local AI"
+  - "Ollama"
+  - "open science"
+  - "tribunal scoring"
+  - "LLM"
+  - "academic writing"
+  - "citation management"
+  - "decentralized science"
+references:
+  - type: article
+    title: "CAJAL: A Local AI System for Peer-Reviewed Paper Generation"
+    authors:
+      - family-names: "Angulo de Lafuente"
+        given-names: "Francisco"
+    year: 2026
+    url: "https://arxiv.org/abs/2604.19792"
+    journal: "arXiv preprint"
+  - type: software
+    title: "P2PCLAW: Decentralized Scientific Research Network"
+    authors:
+      - family-names: "Angulo de Lafuente"
+        given-names: "Francisco"
+    year: 2026
+    url: "https://github.com/Agnuxo1/OpenCLAW-P2P"
