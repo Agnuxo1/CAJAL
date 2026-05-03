@@ -29,10 +29,10 @@ from transformers import (
     AutoTokenizer,
     TrainingArguments,
     BitsAndBytesConfig,
-    DataCollatorForSeq2Seq,
+    DataCollatorForLanguageModeling,
 )
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
-from trl import SFTTrainer
+from transformers import Trainer
 
 # Configuration
 MODEL_PATH = r"D:\PROJECTS\CAJAL\Modelos_originales\Qwen3.5-9B"
@@ -45,14 +45,14 @@ MERGED_DIR = os.path.join(OUTPUT_DIR, "CAJAL-9B-merged-16bit")
 LOG_FILE = os.path.join(OUTPUT_DIR, f"training_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
 
 # Training hyperparameters
-EPOCHS = 5
+EPOCHS = 2
 BATCH_SIZE = 1
 GRAD_ACCUMULATION = 4
-LEARNING_RATE = 1e-4
+LEARNING_RATE = 1.5e-4
 LORA_R = 32
 LORA_ALPHA = 64
 LORA_DROPOUT = 0.05
-MAX_SEQ_LENGTH = 4096
+MAX_SEQ_LENGTH = 2048
 WARMUP_RATIO = 0.1
 WEIGHT_DECAY = 0.01
 SAVE_STEPS = 50
@@ -176,7 +176,7 @@ def main():
         quantization_config=bnb_config,
         device_map="auto",
         torch_dtype=torch.bfloat16,
-        attn_implementation="flash_attention_2" if torch.cuda.get_device_capability()[0] >= 8 else "eager",
+        attn_implementation="eager",
     )
     log(f"Model loaded: {type(model).__name__}")
     log(f"Model device map: {model.hf_device_map if hasattr(model, 'hf_device_map') else 'auto'}")
@@ -206,6 +206,27 @@ def main():
     # Load dataset
     dataset = load_dataset(tokenizer, system_prompt)
     
+    # Tokenize dataset
+    log("Tokenizing dataset...")
+    def tokenize_function(examples):
+        outputs = tokenizer(
+            examples["text"],
+            truncation=True,
+            max_length=MAX_SEQ_LENGTH,
+            padding=False,
+            return_attention_mask=True,
+        )
+        outputs["labels"] = outputs["input_ids"].copy()
+        return outputs
+    
+    tokenized_dataset = dataset.map(
+        tokenize_function,
+        batched=True,
+        remove_columns=dataset.column_names,
+        desc="Tokenizing",
+    )
+    log(f"Tokenized {len(tokenized_dataset)} examples")
+    
     # Training arguments
     log("Configuring training...")
     training_args = TrainingArguments(
@@ -213,7 +234,7 @@ def main():
         num_train_epochs=EPOCHS,
         per_device_train_batch_size=BATCH_SIZE,
         gradient_accumulation_steps=GRAD_ACCUMULATION,
-        optim="paged_adamw_8bit",
+        optim="adamw_torch",
         learning_rate=LEARNING_RATE,
         weight_decay=WEIGHT_DECAY,
         warmup_ratio=WARMUP_RATIO,
@@ -224,32 +245,36 @@ def main():
         max_grad_norm=0.3,
         fp16=False,
         bf16=torch.cuda.is_bf16_supported(),
-        group_by_length=True,
         report_to="none",
         remove_unused_columns=False,
+        dataloader_num_workers=2,
         seed=42,
     )
     
-    # Data collator
-    data_collator = DataCollatorForSeq2Seq(
+    # Data collator for causal LM
+    data_collator = DataCollatorForLanguageModeling(
         tokenizer=tokenizer,
-        model=model,
-        label_pad_token_id=-100,
-        padding=True,
+        mlm=False,
     )
     
     # Trainer
-    log("Initializing SFTTrainer...")
-    trainer = SFTTrainer(
+    log("Initializing Trainer...")
+    trainer = Trainer(
         model=model,
-        train_dataset=dataset,
+        train_dataset=tokenized_dataset,
         args=training_args,
         data_collator=data_collator,
-        max_seq_length=MAX_SEQ_LENGTH,
-        dataset_text_field="text",
-        tokenizer=tokenizer,
     )
     
+    # Resume from latest checkpoint if available
+    last_checkpoint = None
+    if os.path.isdir(CHECKPOINT_DIR):
+        checkpoints = [d for d in os.listdir(CHECKPOINT_DIR) if d.startswith("checkpoint-")]
+        if checkpoints:
+            checkpoints.sort(key=lambda x: int(x.split("-")[1]))
+            last_checkpoint = os.path.join(CHECKPOINT_DIR, checkpoints[-1])
+            log(f"Found checkpoint: {last_checkpoint} — resuming training")
+
     # Train
     log("=" * 60)
     log("Starting training...")
@@ -257,10 +282,13 @@ def main():
     log(f"Effective batch size: {BATCH_SIZE * GRAD_ACCUMULATION}")
     log(f"Learning rate: {LEARNING_RATE}")
     log(f"Max sequence length: {MAX_SEQ_LENGTH}")
+    log(f"Target training time: ~20-28 hours (optimized)")
+    if last_checkpoint:
+        log(f"Resuming from: {last_checkpoint}")
     log("=" * 60)
     
     start_time = time.time()
-    trainer.train()
+    trainer.train(resume_from_checkpoint=last_checkpoint)
     elapsed = time.time() - start_time
     
     log("=" * 60)
