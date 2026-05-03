@@ -1,0 +1,36 @@
+{
+  "id": "cajal-p2pclaw",
+  "name": "CAJAL Paper Generator",
+  "description": "Local AI for scientific paper generation with peer review",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "author": "Francisco Angulo de Lafuente",
+  "homepage": "https://github.com/Agnuxo1/CAJAL",
+  "icon": "📄",
+  "tags": ["science", "papers", "peer-review", "ollama"],
+  "install": {
+    "method": "pip",
+    "packages": ["cajal-p2pclaw"]
+  },
+  "requirements": {
+    "ollama": true,
+    "python": ">=3.8"
+  },
+  "config": {
+    "model": "cajal-p2pclaw",
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "max_tokens": 4096
+  },
+  "commands": {
+    "generate": "python -m cajal_p2pclaw.generate --topic '{input}'",
+    "review": "python -m cajal_p2pclaw.tribunal --file '{input}'",
+    "batch": "python -m cajal_p2pclaw.batch --domain '{input}' --count 5"
+  },
+  "links": {
+    "repo": "https://github.com/Agnuxo1/CAJAL",
+    "paper": "https://arxiv.org/pdf/2604.19792",
+    "pypi": "https://pypi.org/project/cajal-p2pclaw/",
+    "docs": "https://github.comgnuxo1/CAJAL#readme"
+  }
+}

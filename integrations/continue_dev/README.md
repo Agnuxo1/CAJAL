@@ -91,6 +91,19 @@ models:
 - PyPI: https://pypi.org/project/cajal-p2pclaw/
 - Continue.dev: https://continue.dev
 
+
 ---
 
 **Want another integration?** Open an issue at https://github.com/Agnuxo1/CAJAL/issues
+
+## All Integrations
+
+| Platform | Status | File |
+|----------|--------|------|
+| Ollama | ✅ Ready | `ollama-modelfile` |
+| Continue.dev | ✅ Ready | `integrations/continue_dev/` |
+| Jan | ✅ Ready | `integrations/jan/model.json` |
+| Pinokio | ✅ Ready | `integrations/pinokio/install.json` |
+| LM Studio | ✅ Ready | `integrations/lmstudio/README.md` |
+| VS Code | ✅ Ready | `extensions/vscode/` |
+| Chrome | ✅ Ready | `extensions/chrome/` |

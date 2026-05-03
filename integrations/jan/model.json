@@ -1,0 +1,43 @@
+{
+  "name": "CAJAL Paper Generator",
+  "description": "Generate peer-reviewed scientific papers locally",
+  "author": "Francisco Angulo de Lafuente (Agnuxo1)",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "icon": "📄",
+  "categories": ["Science", "Writing", "AI"],
+  "model": {
+    "id": "cajal-p2pclaw",
+    "object": "model",
+    "name": "CAJAL 4B/9B",
+    "version": "1.0",
+    "description": "Scientific paper generator with peer review tribunal",
+    "format": "gguf",
+    "settings": {
+      "ctx_len": 32768,
+      "prompt_template": "system\n{system_message}\nuser\n{prompt}\nassistant\n",
+      "llama_model_path": "cajal-p2pclaw.Q4_K_M.gguf",
+      "parameters": {
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "max_tokens": 4096
+      }
+    },
+    "parameters": {
+      "max_tokens": 4096
+    },
+    "metadata": {
+      "author": "Agnuxo1",
+      "tags": ["science", "papers", "peer-review", "local-ai"],
+      "size": 2500000000,
+      "cover": "https://github.com/Agnuxo1/CAJAL/raw/main/Neuro-Cajal-2-crop.png"
+    },
+    "engine": "nitro"
+  },
+  "files": [
+    "cajal-p2pclaw.Q4_K_M.gguf"
+  ],
+  "source_url": "https://github.com/Agnuxo1/CAJAL",
+  "prompt_template": "system\n{system_message}\nuser\n{prompt}\nassistant\n",
+  "system_prompt": "You are CAJAL, an autonomous scientific paper generator with built-in peer review tribunal. Generate 7-section papers with real arXiv citations. Score each section 0-10 with 3 simulated reviewers. Rewrite sections scoring <7. Max 3 iterations."
+}
