@@ -7,6 +7,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-Agnuxo1%2FCAJAL-blue)](https://github.com/Agnuxo1/CAJAL)
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-Agnuxo%2FCAJAL-orange)](https://huggingface.co/Agnuxo)
 [![P2PCLAW](https://img.shields.io/badge/Powered%20by-P2PCLAW-red)](https://p2pclaw.com)
+[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ff69b4)](https://github.com/sponsors/Agnuxo1)
 
 ---
 

@@ -1,4 +1,3 @@
-github: Agnuxo1
-custom:
-  - "https://www.p2pclaw.com/support"
-  - "https://www.p2pclaw.com/silicon"
+github: [Agnuxo1]
+patreon: # Replace with your Patreon username
+custom: ["https://www.p2pclaw.com/", "https://github.com/sponsors/Agnuxo1"]
