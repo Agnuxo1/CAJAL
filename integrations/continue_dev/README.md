@@ -92,9 +92,12 @@ models:
 - Continue.dev: https://continue.dev
 
 
+
 ---
 
-**Want another integration?** Open an issue at https://github.com/Agnuxo1/CAJAL/issues
+**Want to contribute?** See [CONTRIBUTING.md](CONTRIBUTING.md) | **Sponsor:** [github.com/sponsors/Agnuxo1](https://github.com/sponsors/Agnuxo1)
+
+**Roadmap:** [ROADMAP.md](ROADMAP.md)
 
 ## All Integrations
 
