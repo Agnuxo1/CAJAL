@@ -1,51 +1,107 @@
-# CAJAL-4B-P2PCLAW — ローカル科学論文生成モデル
+# CAJAL — ローカル科学論文生成のためのオープンソースモデル
 
-[English](README.md) | [Español](README_ES.md) | [简体中文](README_ZH.md) | **日本語** | [Русский](README_RU.md)
+## CAJALとは？
 
-## 🧠 概要
+CAJALは、高品質な科学論文を生成するために特化された、完全にオープンソースでローカル実行可能な大規模言語モデルです。APIキー不要、クラウド不要、あなたのハードウェア上で完全に動作します。
 
-CAJAL は、実際の arXiv 引用を持つ出版品質の科学論文を生成するために微調整された 40 億パラメータモデルです —— 完全にローカルで実行されます。
+## 主な機能
 
-**主な機能：**
-- 7セクション論文構造を生成（要旨 → 序論 → 方法 → 結果 → 考察 → 結論 → 参考文献）
-- すべての引用は arXiv API で検証済み（実在の論文、著者、DOI）
-- トリビュナル採点システム：3人の模擬審査員が各セクションを採点（0-10）
-- 100% ローカル推論（Ollama、vLLM、llama.cpp）
-- BibTeX エクスポート対応
+- 🔬 **科学特化** — 研究論文、要約、文献レビューに最適化
+- 🏠 **完全ローカル** — あなたのGPU上で実行、データが外部に流出しない
+- 💰 **ゼロコスト** — オープンソース、無料使用、サブスクリプションなし
+- 🔒 **プライバシー保護** — 機密性の高い研究データをローカルに保持
+- 📄 **論文対応出力** — LaTeX互換フォーマット、引用管理
 
-## 🚀 クイックスタート
+## クイックスタート
 
-### Ollama 経由
+### Ollamaを使用（推奨）
 ```bash
-ollama run cajal-p2pclaw
+ollama pull Agnuxo/CAJAL-4B-P2PCLAW
+ollama run CAJAL-4B-P2PCLAW
 ```
 
-### PyPI 経由
+### llama.cppを使用
 ```bash
-pip install cajal-p2pclaw
-cajal-generate --topic "量子機械学習" --output paper.md
+# GGUFモデルをダウンロード
+wget https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW/resolve/main/cajal-4b-q4_k_m.gguf
+
+# 実行
+./main -m cajal-4b-q4_k_m.gguf --temp 0.7
 ```
 
-## 📊 技術仕様
+### Hugging Face Transformersを使用
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
-| パラメータ | 値 |
-|----------|-----|
-| ベースモデル | Qwen3.5-4B |
-| パラメータ数 | 42億 |
-| コンテキストウィンドウ | 32Kトークン |
-| VRAM要件 | 8GB |
-| ライセンス | MIT |
+model = AutoModelForCausalLM.from_pretrained("Agnuxo/CAJAL-4B-P2PCLAW")
+tokenizer = AutoTokenizer.from_pretrained("Agnuxo/CAJAL-4B-P2PCLAW")
+```
 
-## 🔗 リンク
+## 科学論文の生成
 
-- **GitHub:** https://github.com/Agnuxo1/CAJAL
-- **HuggingFace:** https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW
-- **論文:** https://arxiv.org/pdf/2604.19792
-- **デモ:** https://www.p2pclaw.com/silicon
+```python
+prompt = """気候変動が農業に与える影響に関する機械学習研究論文の要約を生成してください。
+背景、方法、結果、結論を含めてください。"""
 
-## 🤝 統合エコシステム
+inputs = tokenizer(prompt, return_tensors="pt")
+outputs = model.generate(**inputs, max_new_tokens=512, temperature=0.7)
+print(tokenizer.decode(outputs[0]))
+```
 
-CAJAL は 30以上のオープンソースプロジェクトと統合されています：Ollama、Open WebUI、Chainlit、Gradio、Dify、n8n、Flowise、LibreChat など。
+## モデル仕様
+
+| 属性 | 値 |
+|------|-----|
+| アーキテクチャ | Qwen2.5-4B-Instruct |
+| ファインチューニング | QLoRA + 強化学習 |
+| 学習データ | 50+ P2PCLAW科学論文 |
+| コンテキスト長 | 32Kトークン |
+| ライセンス | Apache 2.0 |
+| 量子化 | GGUF Q4_K_M, Q5_K_M, Q8_0 |
+
+## 統合
+
+| プラットフォーム | 状態 | リンク |
+|------|------|------|
+| Ollama | ✅ | [モデルページ](https://ollama.com/Agnuxo/CAJAL-4B-P2PCLAW) |
+| LM Studio | ✅ | [ダウンロード](https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW) |
+| Jan | ✅ | [設定ガイド](https://github.com/Agnuxo1/CAJAL/blob/main/docs/JAN.md) |
+| Continue.dev | ✅ | [設定](https://github.com/Agnuxo1/CAJAL/blob/main/docs/CONTINUE.md) |
+| Pinokio | ✅ | [スクリプト](https://github.com/Agnuxo1/CAJAL/blob/main/docs/PINOKIO.md) |
+
+## システム要件
+
+| ハードウェア | 最低構成 | 推奨構成 |
+|------|---------|---------|
+| GPU | 4GB VRAM | 8GB+ VRAM |
+| CPU | 4コア | 8コア+ |
+| メモリ | 8GB | 16GB+ |
+| ストレージ | 3GB | 5GB+ |
+
+## P2PCLAWエコシステム
+
+CAJALはP2PCLAWの一部です — 分散型科学研究ネットワーク：
+
+- 🤖 **14の自律エージェント** — 研究、ベンチマーク、セキュリティ
+- 🔗 **P2P同期** — デバイス間エージェント連携
+- 🔐 **暗号化ボールト** — ローカル優先、プライバシー保護
+- 🌐 **Webアプリ** — https://p2pclaw.com
+
+## 引用
+
+```bibtex
+@software{cajal2026,
+  author = {Angulo de Lafuente, Francisco},
+  title = {CAJAL: Local Scientific Paper Generation Model},
+  year = {2026},
+  url = {https://github.com/Agnuxo1/CAJAL}
+}
+```
+
+## ライセンス
+
+Apache 2.0 — 詳細は [LICENSE](LICENSE) を参照
 
 ---
-*CAJAL — 現代神経科学の父、サンティアゴ・ラモン・イ・カハルにちなんで命名。*
+
+*P2PCLAW — 分散型科学研究*
