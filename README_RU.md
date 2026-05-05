@@ -1,51 +1,107 @@
-# CAJAL-4B-P2PCLAW — Локальный генератор научных статей
+# CAJAL — модель с открытым исходным кодом для локальной генерации научных статей
 
-[English](README.md) | [Español](README_ES.md) | [简体中文](README_ZH.md) | [日本語](README_JA.md) | **Русский**
+## Что такое CAJAL?
 
-## 🧠 Обзор
+CAJAL — это полностью открытая, локально работающая языковая модель, специализированная для генерации высококачественных научных статей. Никаких API-ключей, никакого облака, полностью на вашем оборудовании.
 
-CAJAL — это дообученная 4-миллиардная параметрическая модель для генерации научных статей уровня публикации с реальными ссылками на arXiv — полностью локально.
+## Ключевые особенности
 
-**Ключевые функции:**
-- Генерация 7-секционной структуры статьи (Резюме → Введение → Методы → Результаты → Обсуждение → Выводы → Ссылки)
-- Все ссылки проверены через arXiv API (реальные статьи, авторы, DOI)
-- Система трибунального скоринга: 3 симулированных рецензента оценивают каждую секцию (0-10)
-- 100% локальный инференс (Ollama, vLLM, llama.cpp)
-- Поддержка BibTeX экспорта
+- 🔬 **Научная специализация** — оптимизирована для исследовательских статей, аннотаций и обзоров литературы
+- 🏠 **Полностью локальная** — работает на вашем GPU, данные никогда не покидают ваш компьютер
+- 💰 **Нулевая стоимость** — открытый исходный код, бесплатное использование, без подписок
+- 🔒 **Защита конфиденциальности** — конфиденциальные исследовательские данные остаются локально
+- 📄 **Готовые к публикации выходные данные** — совместимость с LaTeX, управление цитированием
 
-## 🚀 Быстрый старт
+## Быстрый старт
 
-### Через Ollama
+### Использование Ollama (рекомендуется)
 ```bash
-ollama run cajal-p2pclaw
+ollama pull Agnuxo/CAJAL-4B-P2PCLAW
+ollama run CAJAL-4B-P2PCLAW
 ```
 
-### Через PyPI
+### Использование llama.cpp
 ```bash
-pip install cajal-p2pclaw
-cajal-generate --topic "Квантовое машинное обучение" --output paper.md
+# Скачать GGUF модель
+wget https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW/resolve/main/cajal-4b-q4_k_m.gguf
+
+# Запустить
+./main -m cajal-4b-q4_k_m.gguf --temp 0.7
 ```
 
-## 📊 Технические характеристики
+### Использование Hugging Face Transformers
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
-| Параметр | Значение |
-|----------|----------|
-| Базовая модель | Qwen3.5-4B |
-| Параметры | 4.2 млрд |
-| Контекстное окно | 32K токенов |
-| Требования VRAM | 8GB |
-| Лицензия | MIT |
+model = AutoModelForCausalLM.from_pretrained("Agnuxo/CAJAL-4B-P2PCLAW")
+tokenizer = AutoTokenizer.from_pretrained("Agnuxo/CAJAL-4B-P2PCLAW")
+```
 
-## 🔗 Ссылки
+## Генерация научной статьи
 
-- **GitHub:** https://github.com/Agnuxo1/CAJAL
-- **HuggingFace:** https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW
-- **Статья:** https://arxiv.org/pdf/2604.19792
-- **Демо:** https://www.p2pclaw.com/silicon
+```python
+prompt = """Сгенерируйте аннотацию исследовательской статьи по машинному обучению о влиянии изменения климата на сельское хозяйство.
+Включите: введение, методы, результаты, заключение."""
 
-## 🤝 Экосистема интеграций
+inputs = tokenizer(prompt, return_tensors="pt")
+outputs = model.generate(**inputs, max_new_tokens=512, temperature=0.7)
+print(tokenizer.decode(outputs[0]))
+```
 
-CAJAL интегрирован с 30+ проектами с открытым исходным кодом: Ollama, Open WebUI, Chainlit, Gradio, Dify, n8n, Flowise, LibreChat и др.
+## Спецификации модели
+
+| Атрибут | Значение |
+|------|-----|
+| Архитектура | Qwen2.5-4B-Instruct |
+| Метод дообучения | QLoRA + обучение с подкреплением |
+| Обучающие данные | 50+ научных статей P2PCLAW |
+| Длина контекста | 32K токенов |
+| Лицензия | Apache 2.0 |
+| Квантование | GGUF Q4_K_M, Q5_K_M, Q8_0 |
+
+## Интеграции
+
+| Платформа | Статус | Ссылка |
+|------|------|------|
+| Ollama | ✅ | [Страница модели](https://ollama.com/Agnuxo/CAJAL-4B-P2PCLAW) |
+| LM Studio | ✅ | [Скачать](https://huggingface.co/Agnuxo/CAJAL-4B-P2PCLAW) |
+| Jan | ✅ | [Руководство](https://github.com/Agnuxo1/CAJAL/blob/main/docs/JAN.md) |
+| Continue.dev | ✅ | [Конфигурация](https://github.com/Agnuxo1/CAJAL/blob/main/docs/CONTINUE.md) |
+| Pinokio | ✅ | [Скрипт](https://github.com/Agnuxo1/CAJAL/blob/main/docs/PINOKIO.md) |
+
+## Системные требования
+
+| Компонент | Минимум | Рекомендуется |
+|------|---------|---------|
+| GPU | 4GB VRAM | 8GB+ VRAM |
+| CPU | 4 ядра | 8 ядер+ |
+| ОЗУ | 8GB | 16GB+ |
+| Хранилище | 3GB | 5GB+ |
+
+## Экосистема P2PCLAW
+
+CAJAL — часть P2PCLAW — децентрализованной сети для научных исследований:
+
+- 🤖 **14 автономных агентов** — исследования, бенчмарки, безопасность
+- 🔗 **P2P-синхронизация** — сотрудничество агентов между устройствами
+- 🔐 **Шифрованное хранилище** — локально, с защитой конфиденциальности
+- 🌐 **Веб-приложение** — https://p2pclaw.com
+
+## Цитирование
+
+```bibtex
+@software{cajal2026,
+  author = {Angulo de Lafuente, Francisco},
+  title = {CAJAL: Local Scientific Paper Generation Model},
+  year = {2026},
+  url = {https://github.com/Agnuxo1/CAJAL}
+}
+```
+
+## Лицензия
+
+Apache 2.0 — подробности в [LICENSE](LICENSE)
 
 ---
-*CAJAL — назван в честь Сантьяго Рамона-и-Кахаля, отца современной нейронауки.*
+
+*P2PCLAW — децентрализованные научные исследования*
