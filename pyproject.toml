@@ -72,3 +72,18 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 cajal = ["templates/*", "assets/*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = [
+    "F401",  # imported but unused — common in dev code with optional deps
+    "F541",  # f-string without placeholders
+    "F841",  # local variable assigned but never used
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
