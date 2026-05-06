@@ -1,4 +1,4 @@
-                            <img width="1254" height="1254" alt="Neuro-Cajal" src="https://github.com/user-attachments/assets/d0ca65dd-eac3-4892-aff6-b070d921d3db" />
+<img width="1254" height="1254" alt="Neuro-Cajal" src="https://github.com/user-attachments/assets/d0ca65dd-eac3-4892-aff6-b070d921d3db" />
 
 
 
