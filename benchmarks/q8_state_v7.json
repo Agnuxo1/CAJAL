@@ -1,0 +1,640 @@
+{
+  "iteration": 14,
+  "best_score": 7,
+  "best_paper_id": "paper-1778049477230",
+  "history": [
+    {
+      "iteration": 1,
+      "status": "TOO_SHORT",
+      "words": 2442
+    },
+    {
+      "iteration": 2,
+      "status": "TOO_SHORT",
+      "words": 2109
+    },
+    {
+      "iteration": 3,
+      "status": "OK",
+      "paper_id": "paper-1778049204042",
+      "overall_score": 2.9,
+      "granular_scores": {
+        "sections": {
+          "abstract": 0,
+          "introduction": 0,
+          "methodology": 0,
+          "results": 5.4,
+          "discussion": 0,
+          "conclusion": 0,
+          "references": 0
+        },
+        "overall": 2.9,
+        "novelty": 5.5,
+        "reproducibility": 7.4,
+        "citation_quality": 5.4,
+        "judges": [
+          "Cerebras-Qwen235B",
+          "Cerebras-Llama8B",
+          "Sarvam",
+          "NVIDIA",
+          "Inception-Mercury2",
+          "Cohere-CommandA",
+          "Cloudflare-Qwen3"
+        ],
+        "judge_count": 7,
+        "judge_details": [
+          {
+            "judge": "Cerebras-Qwen235B",
+            "scores": {
+              "abstract": 8,
+              "introduction": 8,
+              "methodology": 6,
+              "results": 5,
+              "discussion": 7,
+              "conclusion": 7,
+              "references": 9,
+              "novelty": 6,
+              "reproducibility": 5,
+              "citation_quality": 9
+            },
+            "feedback": null
+          },
+          {
+            "judge": "Cerebras-Llama8B",
+            "scores": {
+              "abstract": 8,
+              "introduction": 9,
+              "methodology": 7,
+              "results": 8,
+              "discussion": 7,
+              "conclusion": 8,
+              "references": 9,
+              "novelty": 8,
+              "reproducibility": 9,
+              "citation_quality": 9
+            },
+            "feedback": null
+          },
+          {
+            "judge": "Sarvam",
+            "scores": {
+              "abstract": 8,
+              "introduction": 8,
+              "methodology": 7,
+              "results": 7,
+              "discussion": 7,
+              "conclusion": 8,
+              "references": 9,
+              "novelty": 7,
+              "reproducibility": 7,
+              "citation_quality": 9
+            },
+            "feedback": null
+          },
+          {
+            "judge": "NVIDIA",
+            "scores": {
+              "abstract": 8,
+              "introduction": 9,
+              "methodology": 9,
+              "results": 9,
+              "discussion": 8,
+              "conclusion": 8,
+              "references": 9,
+              "novelty": 8,
+              "reproducibility": 9,
+              "citation_quality": 9
+            },
+            "feedback": null
+          },
+          {
+            "judge": "Inception-Mercury2",
+            "scores": {
+              "abstract": 8,
+              "introduction": 8,
+              "methodology": 7,
+              "results": 4,
+              "discussion": 7,
+              "conclusion": 7,
+              "references": 9,
+              "novelty": 5,
+              "reproducibility": 8,
+              "citation_quality": 9
+            },
+            "feedback": null
+          },
+          {
+            "judge": "Cohere-CommandA",
+            "scores": {
+              "abstract": 9,
+              "introduction": 9,
+              "methodology": 8,
+              "results": 9,
+              "discussion": 8,
+              "conclusion": 8,
+              "references": 9,
+              "novelty": 8,
+              "reproducibility": 9,
+              "citation_quality": 9
+            },
+            "feedback": null
+          },
+          {
+            "judge": "Cloudflare-Qwen3",
+            "scores": {
+              "abstract": 7,
+              "introduction": 8,
+              "methodology": 7,
+              "results": 7,
+              "discussion": 8,
+              "conclusion": 7,
+              "references": 8,
+              "novelty": 8,
+              "reproducibility": 7,
+              "citation_quality": 8
+            },
+            "feedback": null
+          }
+        ],
+        "consensus": {
+          "abstract": 0.89,
+          "introduction": 0.9,
+          "methodology": 0.82,
+          "results": 0.65,
+          "discussion": 0.9,
+          "conclusion": 0.9,
+          "references": 0.93,
+          "novelty": 0.78,
+          "reproducibility": 0.72,
+          "citation_quality": 0.93
+        },
+        "overall_consensus": 0.84,
+        "feedback": null,
+        "scored_at": "2026-05-06T06:35:31.348Z",
+        "paper_type": "research",
+        "calibration": {
+          "field": "cs-distributed",
+          "field_confidence": 1,
+          "signals_summary": {
+            "word_count": 2582,
+            "sections_present": 1,
+            "sections_missing": [
+              "abstract",
+              "introduction",
+              "methodology",
+              "discussion",
+              "conclusion",
+              "references"
+            ],
+            "red_flags": [
+              "excessive_self_citation"
+            ],
+            "red_flag_count": 1,
+            "has_formal_proofs": true,
+            "has_equations": true,
+            "has_code": true,
+            "unique_refs": 8,
+            "has_placeholder_refs": false,
+            "depth_score": 1,
+            "evidence_markers": 11,
+            "deception_count": 0,
+            "deception_matches": [],
+            "grammar": {
+              "vocabulary_diversity": 0.353,
+              "is_monotone": false,
+              "is_low_vocabulary": false
+            },
+            "repetition_ratio": 0.049,
+            "code_quality": {
+              "blocks": 1,
+              "has_real_code": false,
+              "has_python": true
+            },
+            "math_formulas": 12,
+            "lean4": "none",
+            "tables": 1
+          },
+          "adjustments": {
+            "abstract": [
+              "red_flag_penalty: -1 (excessive_self_citation)",
+              "section_missing: 7 \u2192 0"
+            ],
+            "introduction": [
+              "red_flag_penalty: -1 (excessive_self_citation)",
+              "section_missing: 7.4 \u2192 0"
+            ],
+            "methodology": [
+              "red_flag_penalty: -1 (excessive_self_citation)",
+              "section_missing: 6.3 \u2192 0"
+            ],
+            "results": [
+              "red_flag_penalty: -1 (excessive_self_citation)",
+              "llm_inflation_correction: 6 -> 5.4"
+            ],
+            "discussion": [
+              "red_flag_penalty: -1 (excessive_self_citation)",
+              "section_missing: 6.4 \u2192 0"
+            ],
+            "conclusion": [
+              "red_flag_penalty: -1 (excessive_self_citation)",
+              "section_missing: 6.6 \u2192 0"
+            ],
+            "references": [
+              "red_flag_penalty: -1 (excessive_self_citation)",
+              "section_missing: 7.9 \u2192 0"
+            ],
+            "novelty": [
+              "red_flag_penalty: -1 (excessive_self_citation)",
+              "llm_inflation_correction: 6.1 -> 5.5"
+            ],
+            "reproducibility": [
+              "red_flag_penalty: -1 (excessive_self_citation)",
+              "llm_inflation_correction: 6.7 -> 6",
+              "outlier_6_vs_mean_2.4: capped at 5.4"
+            ],
+            "citation_quality": [
+              "red_flag_penalty: -1 (excessive_self_citation)",
+              "llm_inflation_correction: 7.9 -> 7",
+              "outlier_7_vs_mean_2.4: capped at 5.4"
+            ]
+          },
+          "adjustment_count": 10,
+          "reference_papers": [
+            "The Byzantine Generals Problem",
+            "Bitcoin: A Peer-to-Peer Electronic Cash System",
+            "In Search of an Understandable Consensus Algorithm"
+          ]
+        },
+        "live_verification": {
+          "verification_time_ms": 107,
+          "citations": {
+            "total": 0,
+            "verified": 0,
+            "verification_rate": 0
+          },
+          "novelty": {
+            "searched": false
+          },
+          "code_execution": {
+            "total": 1,
+            "passed": 1,
+            "failed": 0
+          },
+          "lean4": {
+            "blocks_found": 0,
+            "verified": 0,
+            "has_unsubstantiated_claim": false
+          },
+          "adjustments": {},
+          "bonuses": {
+            "reproducibility": "code_executed_1/1_passed: +2 reproducibility bonus",
+            "reproducibility_bonus": 2,
+            "execution_proof_bonus": 0.5,
+            "execution_proof_note": "1 code block(s) executed successfully: +0.5 overall bonus (capped at 1.5)"
+          }
+        },
+        "quality_flag": "DRAFT",
+        "quality_note": "Score below 3.0 \u2014 paper is stored but marked as draft. Improve and resubmit for full publication."
+      },
+      "file": "E:\\CAJAL-9B\\papers\\Q8_0_cajal-9b-v2-q8-v7-3_20260506_083236.md",
+      "word_count": 2521,
+      "params": {
+        "num_predict": 20000,
+        "temperature": 0.5,
+        "top_p": 0.9,
+        "top_k": 50,
+        "repeat_penalty": 1.18
+      },
+      "topic": "Threshold Signature Aggregation for Network-Adaptive BFT"
+    },
+    {
+      "iteration": 4,
+      "status": "OK",
+      "paper_id": "paper-1778049477230",
+      "overall_score": 7,
+      "granular_scores": {
+        "sections": {
+          "abstract": 6.7,
+          "introduction": 6.8,
+          "methodology": 6.7,
+          "results": 6.2,
+          "discussion": 6.3,
+          "conclusion": 6.3,
+          "references": 4.9
+        },
+        "overall": 7,
+        "novelty": 7,
+        "reproducibility": 9,
+        "citation_quality": 5.4,
+        "judges": [
+          "Cerebras-Llama8B",
+          "Mistral",
+          "Sarvam",
+          "NVIDIA",
+          "Inception-Mercury2",
+          "Cohere-CommandA",
+          "Cloudflare-Qwen3"
+        ],
+        "judge_count": 7,
+        "judge_details": [
+          {
+            "judge": "Cerebras-Llama8B",
+            "scores": {
+              "abstract": 8,
+              "introduction": 9,
+              "methodology": 8,
+              "results": 8,
+              "discussion": 7,
+              "conclusion": 8,
+              "references": 9,
+              "novelty": 8,
+              "reproducibility": 9,
+              "citation_quality": 8
+            },
+            "feedback": null
+          },
+          {
+            "judge": "Mistral",
+            "scores": {
+              "abstract": 7,
+              "introduction": 6,
+              "methodology": 5,
+              "results": 5,
+              "discussion": 6,
+              "conclusion": 6,
+              "references": 2,
+              "novelty": 5,
+              "reproducibility": 8,
+              "citation_quality": 3
+            },
+            "feedback": null
+          },
+          {
+            "judge": "Sarvam",
+            "scores": {
+              "abstract": 7,
+              "introduction": 8,
+              "methodology": 7,
+              "results": 7,
+              "discussion": 7,
+              "conclusion": 7,
+              "references": 1,
+              "novelty": 6,
+              "reproducibility": 6,
+              "citation_quality": 2
+            },
+            "feedback": null
+          },
+          {
+            "judge": "NVIDIA",
+            "scores": {
+              "abstract": 8,
+              "introduction": 9,
+              "methodology": 9,
+              "results": 8,
+              "discussion": 8,
+              "conclusion": 8,
+              "references": 7,
+              "novelty": 8,
+              "reproducibility": 9,
+              "citation_quality": 8
+            },
+            "feedback": null
+          },
+          {
+            "judge": "Inception-Mercury2",
+            "scores": {
+              "abstract": 7,
+              "introduction": 6,
+              "methodology": 7,
+              "results": 4,
+              "discussion": 6,
+              "conclusion": 6,
+              "references": 0,
+              "novelty": 5,
+              "reproducibility": 7,
+              "citation_quality": 2
+            },
+            "feedback": null
+          },
+          {
+            "judge": "Cohere-CommandA",
+            "scores": {
+              "abstract": 9,
+              "introduction": 9,
+              "methodology": 9,
+              "results": 9,
+              "discussion": 8,
+              "conclusion": 8,
+              "references": 9,
+              "novelty": 8,
+              "reproducibility": 9,
+              "citation_quality": 9
+            },
+            "feedback": null
+          },
+          {
+            "judge": "Cloudflare-Qwen3",
+            "scores": {
+              "abstract": 7,
+              "introduction": 7,
+              "methodology": 8,
+              "results": 7,
+              "discussion": 8,
+              "conclusion": 7,
+              "references": 1,
+              "novelty": 7,
+              "reproducibility": 7,
+              "citation_quality": 1
+            },
+            "feedback": null
+          }
+        ],
+        "consensus": {
+          "abstract": 0.85,
+          "introduction": 0.74,
+          "methodology": 0.74,
+          "results": 0.67,
+          "discussion": 0.83,
+          "conclusion": 0.83,
+          "references": 0.26,
+          "novelty": 0.74,
+          "reproducibility": 0.78,
+          "citation_quality": 0.36
+        },
+        "overall_consensus": 0.68,
+        "feedback": null,
+        "scored_at": "2026-05-06T06:40:01.284Z",
+        "paper_type": "research",
+        "calibration": {
+          "field": "cs-distributed",
+          "field_confidence": 1,
+          "signals_summary": {
+            "word_count": 2778,
+            "sections_present": 7,
+            "sections_missing": [],
+            "red_flags": [],
+            "red_flag_count": 0,
+            "has_formal_proofs": true,
+            "has_equations": true,
+            "has_code": true,
+            "unique_refs": 8,
+            "has_placeholder_refs": false,
+            "depth_score": 1,
+            "evidence_markers": 11,
+            "deception_count": 0,
+            "deception_matches": [],
+            "grammar": {
+              "vocabulary_diversity": 0.332,
+              "is_monotone": false,
+              "is_low_vocabulary": false
+            },
+            "repetition_ratio": 0.076,
+            "code_quality": {
+              "blocks": 1,
+              "has_real_code": false,
+              "has_python": true
+            },
+            "math_formulas": 68,
+            "lean4": "none",
+            "tables": 2
+          },
+          "adjustments": {
+            "abstract": [
+              "llm_inflation_correction: 7.6 -> 6.7"
+            ],
+            "introduction": [
+              "llm_inflation_correction: 7.7 -> 6.8"
+            ],
+            "methodology": [
+              "llm_inflation_correction: 7.6 -> 6.7"
+            ],
+            "results": [
+              "llm_inflation_correction: 6.9 -> 6.2"
+            ],
+            "discussion": [
+              "llm_inflation_correction: 7.1 -> 6.3"
+            ],
+            "conclusion": [
+              "llm_inflation_correction: 7.1 -> 6.3"
+            ],
+            "references": [
+              "llm_inflation_correction: 4.1 -> 3.9"
+            ],
+            "novelty": [
+              "llm_inflation_correction: 6.7 -> 6"
+            ],
+            "reproducibility": [
+              "llm_inflation_correction: 7.9 -> 7"
+            ],
+            "citation_quality": [
+              "llm_inflation_correction: 4.7 -> 4.4"
+            ]
+          },
+          "adjustment_count": 10,
+          "reference_papers": [
+            "The Byzantine Generals Problem",
+            "Bitcoin: A Peer-to-Peer Electronic Cash System",
+            "In Search of an Understandable Consensus Algorithm"
+          ]
+        },
+        "live_verification": {
+          "verification_time_ms": 11934,
+          "citations": {
+            "total": 7,
+            "verified": 7,
+            "verification_rate": 100
+          },
+          "novelty": {
+            "searched": true,
+            "total_found": 5,
+            "novelty_concern": "low",
+            "max_similarity": 6
+          },
+          "code_execution": {
+            "total": 1,
+            "passed": 1,
+            "failed": 0
+          },
+          "lean4": {
+            "blocks_found": 0,
+            "verified": 0,
+            "has_unsubstantiated_claim": false
+          },
+          "adjustments": {},
+          "bonuses": {
+            "references": "crossref_verified_7/7(100%): +1 bonus",
+            "references_bonus": 1,
+            "citation_quality": "crossref_high_rate: +1 bonus",
+            "citation_quality_bonus": 1,
+            "novelty": "arxiv_no_similar_papers: +1 novelty bonus",
+            "novelty_bonus": 1,
+            "reproducibility": "code_executed_1/1_passed: +2 reproducibility bonus",
+            "reproducibility_bonus": 2,
+            "execution_proof_bonus": 0.5,
+            "execution_proof_note": "1 code block(s) executed successfully: +0.5 overall bonus (capped at 1.5)"
+          }
+        }
+      },
+      "file": "E:\\CAJAL-9B\\papers\\Q8_0_cajal-9b-v2-q8-v7-4_20260506_083712.md",
+      "word_count": 2715,
+      "params": {
+        "num_predict": 24000,
+        "temperature": 0.35,
+        "top_p": 0.9,
+        "top_k": 50,
+        "repeat_penalty": 1.18
+      },
+      "topic": "State Machine Replication with Adaptive Timeout Calibration"
+    },
+    {
+      "iteration": 5,
+      "status": "TOO_SHORT",
+      "words": 1759
+    },
+    {
+      "iteration": 6,
+      "status": "TOO_SHORT",
+      "words": 2046
+    },
+    {
+      "iteration": 7,
+      "status": "EMPTY"
+    },
+    {
+      "iteration": 8,
+      "status": "TOO_SHORT",
+      "words": 2117
+    },
+    {
+      "iteration": 9,
+      "status": "TOO_SHORT",
+      "words": 1772
+    },
+    {
+      "iteration": 10,
+      "status": "EMPTY"
+    },
+    {
+      "iteration": 11,
+      "status": "TRIBUNAL_FAIL",
+      "file": "E:\\CAJAL-9B\\papers\\Q8_0_cajal-9b-v2-q8-v7-11_20260506_092611.md",
+      "words": 9370
+    },
+    {
+      "iteration": 12,
+      "status": "TOO_SHORT",
+      "words": 1763
+    },
+    {
+      "iteration": 13,
+      "status": "TOO_SHORT",
+      "words": 2253
+    },
+    {
+      "iteration": 14,
+      "status": "TOO_SHORT",
+      "words": 1814
+    }
+  ]
+}

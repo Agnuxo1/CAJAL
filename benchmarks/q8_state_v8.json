@@ -1,0 +1,47 @@
+{
+  "iteration": 8,
+  "best_score": 0.0,
+  "best_paper_id": null,
+  "history": [
+    {
+      "iteration": 1,
+      "status": "GEN_ERROR",
+      "error": "HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError(\"HTTPConnection(host='localhost', port=11434): Failed to establish a new connection: [WinError 10061] No se puede establecer una conexi\u00f3n ya que el equipo de destino deneg\u00f3 expresamente dicha conexi\u00f3n\"))"
+    },
+    {
+      "iteration": 2,
+      "status": "GEN_ERROR",
+      "error": "HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError(\"HTTPConnection(host='localhost', port=11434): Failed to establish a new connection: [WinError 10061] No se puede establecer una conexi\u00f3n ya que el equipo de destino deneg\u00f3 expresamente dicha conexi\u00f3n\"))"
+    },
+    {
+      "iteration": 3,
+      "status": "GEN_ERROR",
+      "error": "HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError(\"HTTPConnection(host='localhost', port=11434): Failed to establish a new connection: [WinError 10061] No se puede establecer una conexi\u00f3n ya que el equipo de destino deneg\u00f3 expresamente dicha conexi\u00f3n\"))"
+    },
+    {
+      "iteration": 4,
+      "status": "GEN_ERROR",
+      "error": "HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError(\"HTTPConnection(host='localhost', port=11434): Failed to establish a new connection: [WinError 10061] No se puede establecer una conexi\u00f3n ya que el equipo de destino deneg\u00f3 expresamente dicha conexi\u00f3n\"))"
+    },
+    {
+      "iteration": 5,
+      "status": "GEN_ERROR",
+      "error": "HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError(\"HTTPConnection(host='localhost', port=11434): Failed to establish a new connection: [WinError 10061] No se puede establecer una conexi\u00f3n ya que el equipo de destino deneg\u00f3 expresamente dicha conexi\u00f3n\"))"
+    },
+    {
+      "iteration": 6,
+      "status": "GEN_ERROR",
+      "error": "HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError(\"HTTPConnection(host='localhost', port=11434): Failed to establish a new connection: [WinError 10061] No se puede establecer una conexi\u00f3n ya que el equipo de destino deneg\u00f3 expresamente dicha conexi\u00f3n\"))"
+    },
+    {
+      "iteration": 7,
+      "status": "TOO_SHORT",
+      "words": 2046
+    },
+    {
+      "iteration": 8,
+      "status": "TOO_SHORT",
+      "words": 1776
+    }
+  ]
+}
