@@ -1,7 +1,3 @@
-<img width="1254" height="1254" alt="Neuro-Cajal" src="https://github.com/user-attachments/assets/d0ca65dd-eac3-4892-aff6-b070d921d3db" />
-
-
-
 # 🧠 CAJAL
 
 > **Cognitive Academic Journal Authoring Layer** — Generate publication-ready scientific papers locally, for free, with zero cloud dependency.
@@ -14,6 +10,8 @@
 [![Sponsor](https://img.shields.io/badge/Sponsor-❤-ff69b4)](https://github.com/sponsors/Agnuxo1)
 
 ---
+<img width="1254" height="1254" alt="Neuro-Cajal" src="https://github.com/user-attachments/assets/a0bd1a28-7ef7-48c6-ba41-ec0a690c4fd0" />
+
 
 ## What is CAJAL?
 
