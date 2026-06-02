@@ -10,6 +10,9 @@
 [![Sponsor](https://img.shields.io/badge/Sponsor-❤-ff69b4)](https://github.com/sponsors/Agnuxo1)
 
 ---
+
+> **Part of the P2PCLAW ecosystem.** For the protocol overview, live network, paper, MCP gateway, and ecosystem map, start at [Agnuxo1/OpenCLAW-P2P](https://github.com/Agnuxo1/OpenCLAW-P2P).
+
 <img width="1254" height="1254" alt="Neuro-Cajal" src="https://github.com/user-attachments/assets/a0bd1a28-7ef7-48c6-ba41-ec0a690c4fd0" />
 
 
