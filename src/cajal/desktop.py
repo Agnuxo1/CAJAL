@@ -163,7 +163,8 @@ def open_chat_window():
                 root.after(0, lambda: add_message('assistant', reply))
                 messages.append({'role': 'assistant', 'content': reply})
             except Exception as e:
-                root.after(0, lambda: add_message('assistant', f'Error: {str(e)}'))
+                error = str(e)
+                root.after(0, lambda: add_message('assistant', f'Error: {error}'))
         
         threading.Thread(target=get_response, daemon=True).start()
     
@@ -242,3 +243,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
