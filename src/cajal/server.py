@@ -98,7 +98,7 @@ def create_app():
 def main():
     parser = argparse.ArgumentParser(description="CAJAL API Server")
     parser.add_argument("--port", "-p", type=int, default=8765, help="Port to listen on")
-    parser.add_argument("--host", default="0.0.0.0", help="Host to bind to")
+    parser.add_argument("--host", default="127.0.0.1", help="Host to bind to")
     args = parser.parse_args()
     
     app = create_app()
@@ -110,3 +110,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
