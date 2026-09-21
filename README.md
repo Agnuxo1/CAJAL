@@ -1,8 +1,8 @@
 # 🧠 CAJAL
 
-> **Cognitive Academic Journal Authoring Layer** — Generate publication-ready scientific papers locally, for free, with zero cloud dependency.
+> **Cognitive Academic Journal Authoring Layer** — Connect a local Ollama/LLM backend to a small, testable scientific assistant without sending prompts to a hosted API.
 
-[![PyPI](https://img.shields.io/badge/PyPI-cajal--p2pclaw-blueviolet)](https://pypi.org/project/cajal-p2pclaw/)
+[![PyPI](https://img.shields.io/badge/PyPI-cajal-blueviolet)](https://pypi.org/project/cajal/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-Agnuxo1%2FCAJAL-blue)](https://github.com/Agnuxo1/CAJAL)
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-Agnuxo%2FCAJAL-orange)](https://huggingface.co/Agnuxo)
@@ -89,24 +89,23 @@ Your Paper ──▶ Tribunal (8-10 LLM Judges)
 ### Quick Start (30 seconds)
 
 ```bash
-# 1. Install CAJAL
-pip install cajal-p2pclaw
+# 1. Install CAJAL and the local API server
+pip install "cajal[server]"
 
 # 2. Install Ollama (if not already installed)
 # macOS: brew install ollama
 # Linux: curl -fsSL https://ollama.com/install.sh | sh
 
-# 3. Create the CAJAL model
-ollama create cajal -f integrations/ollama/Modelfile
+# 3. Check Ollama and configure the model
+cajal status
 
-# 4. Generate your first paper
-python -c "from cajal_p2pclaw import PaperGenerator; \
-  PaperGenerator().generate('Quantum error correction with surface codes')"
+# 4. Ask the configured local model
+cajal ask "What are the main challenges in decentralized AI governance?"
 ```
 
 ### Requirements
 
-- Python 3.8+
+- Python 3.10+
 - [Ollama](https://ollama.com) installed and running
 - Any Ollama-compatible model (llama3.1, qwen3.5, mistral, etc.)
 
@@ -117,45 +116,40 @@ python -c "from cajal_p2pclaw import PaperGenerator; \
 ### Command Line
 
 ```bash
-# Generate a full paper
-cajal generate "Federated learning for medical imaging privacy"
+# Check local Ollama/model status
+cajal status
 
-# Generate only an abstract
-cajal abstract "Neural architecture search for edge devices"
+# Ask one question and exit
+cajal ask "What are the main challenges in decentralized AI governance?"
 
-# Generate methodology section
-cajal methods "Differential privacy in distributed training"
+# Start an interactive local chat
+cajal chat
 
-# Find references for a topic
-cajal references "Byzantine fault tolerance in P2P networks" --count 12
-
-# Review an existing draft
-cajal review draft.md
+# Inspect or edit local configuration
+cajal config
 ```
 
 ### Python API
 
 ```python
-from cajal_p2pclaw import PaperGenerator
+from cajal import CAJAL
 
-# Initialize
-gen = PaperGenerator(model="cajal", host="http://localhost:11434")
+# Connect to the local Ollama bridge
+gen = CAJAL.from_ollama(model="cajal-4b")
 
-# Generate a full paper
-paper = gen.generate(
-    topic="Quantum machine learning for drug discovery",
-    format="markdown",      # or "latex", "pdf"
-    min_references=10
-)
-print(paper)
-
-# Generate specific sections
-abstract = gen.generate_abstract("Neural architecture search")
-methods = gen.generate_methods("Federated learning with differential privacy")
-refs = gen.find_references("Byzantine consensus mechanisms", count=12)
+# Send a prompt to the model
+answer = gen.chat("Summarize Byzantine consensus in five sentences.")
+print(answer)
 ```
 
-### JavaScript / TypeScript
+The `cajal_p2pclaw/` directory contains legacy model and integration code. It is
+preserved for provenance, but it is not the installable `cajal` package and is not
+covered by the smoke-test workflow below.
+
+### Legacy JavaScript / TypeScript integration
+
+The following adapter belongs to the preserved legacy integrations and is not the
+installable Python package or part of the smoke-test workflow.
 
 ```typescript
 import { CAJAL } from 'cajal-p2pclaw';
@@ -239,13 +233,12 @@ One config file. Zero dependencies. Works everywhere.
 
 ```
 CAJAL/
-├── cajal_p2pclaw/          # PyPI package source
-│   ├── __init__.py
-│   ├── generator.py         # Core paper generation engine
-│   ├── tribunal.py          # LLM jury scoring system
-│   ├── citations.py         # arXiv/CrossRef integration
-│   ├── cli.py               # Command-line interface
-│   └── formats.py           # Markdown / LaTeX / PDF exporters
+├── src/cajal/              # Installable CAJAL package
+│   ├── core.py             # Ollama, Transformers and GGUF bridges
+│   ├── cli.py              # status/install/chat/ask/config commands
+│   ├── server.py           # Local OpenAI-compatible API
+│   └── config.py           # Local configuration management
+├── cajal_p2pclaw/          # Preserved legacy model/integration code
 ├── integrations/            # 100+ native integration kits
 │   ├── ollama/              # Modelfile
 │   ├── langchain/           # LLM wrapper
@@ -297,7 +290,7 @@ We give integration kits to open-source projects **freely and unconditionally**.
 | GitHub Issues | [Agnuxo1/CAJAL/issues](https://github.com/Agnuxo1/CAJAL/issues) |
 | Live Demo | [p2pclaw.com/silicon](https://www.p2pclaw.com/silicon) |
 | HuggingFace | [huggingface.co/Agnuxo](https://huggingface.co/Agnuxo) |
-| PyPI | [pypi.org/project/cajal-p2pclaw](https://pypi.org/project/cajal-p2pclaw/) |
+| PyPI | [pypi.org/project/cajal](https://pypi.org/project/cajal/) |
 
 ---
 
@@ -481,3 +474,4 @@ This dataset is released under the **Apache License 2.0**. You are free to use, 
 Built with ❤️ by the CAJAL Team — honoring Santiago Ramón y Cajal, father of modern neuroscience.
 
 </div>
+

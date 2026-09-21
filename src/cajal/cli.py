@@ -1,16 +1,11 @@
 """CAJAL CLI — Command Line Interface."""
 
 import argparse
-import io
 import json
 import os
 import subprocess
 import sys
 import time
-
-if sys.platform == "win32":
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 from pathlib import Path
 
@@ -111,13 +106,13 @@ def cmd_install(args):
         print(result.stderr)
 
 def create_modelfile():
-    return """FROM ./CAJAL-4B-f16.gguf
+    return '''FROM ./CAJAL-4B-f16.gguf
 
 TEMPLATE """{{- if .System }}<|im_start|>system
 {{ .System }}<|im_end|>
-{{ end }}{{ range .Messages }}{{ if eq .Role \"user\" }}<|im_start|>user
+{{ end }}{{ range .Messages }}{{ if eq .Role "user" }}<|im_start|>user
 {{ .Content }}<|im_end|>
-{{ else if eq .Role \"assistant\" }}<|im_start|>assistant
+{{ else if eq .Role "assistant" }}<|im_start|>assistant
 {{ .Content }}<|im_end|>
 {{ end }}{{ end }}<|im_start|>assistant
 <think>
@@ -130,6 +125,7 @@ PARAMETER top_p 0.9
 PARAMETER num_ctx 4096
 PARAMETER stop <|im_end|>
 """
+'''
 
 def cmd_chat(args):
     cfg = get_config()
@@ -222,6 +218,10 @@ def cmd_config(args):
     subprocess.run([editor, str(config_path)])
 
 def main():
+    if sys.platform == "win32" and hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
     parser = argparse.ArgumentParser(
         prog="cajal",
         description="CAJAL-4B Command Line Interface"
@@ -255,3 +255,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
