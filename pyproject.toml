@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,7 +7,8 @@ name = "cajal"
 version = "1.0.0"
 description = "CAJAL-4B: P2PCLAW-optimized LLM — honoring Santiago Ramón y Cajal"
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     { name = "P2PCLAW", email = "research@p2pclaw.com" }
 ]
@@ -16,7 +17,6 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
@@ -73,6 +73,10 @@ where = ["src"]
 [tool.setuptools.package-data]
 cajal = ["templates/*", "assets/*"]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:nengo"
+
 [tool.ruff.lint]
 select = ["E", "F", "W"]
 ignore = [
@@ -87,3 +91,4 @@ convention = "google"
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+
