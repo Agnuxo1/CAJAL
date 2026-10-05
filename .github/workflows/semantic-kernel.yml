@@ -1,0 +1,33 @@
+name: Semantic Kernel community integration
+on:
+  pull_request:
+    paths:
+      - 'integrations/semantic-kernel/**'
+      - 'src/cajal/server.py'
+      - '.github/workflows/semantic-kernel.yml'
+  push:
+    branches: [main, feat/semantic-kernel-local-chat]
+    paths:
+      - 'integrations/semantic-kernel/**'
+      - 'src/cajal/server.py'
+      - '.github/workflows/semantic-kernel.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '9.0.304'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: pip install '.[server]'
+      - run: dotnet restore integrations/semantic-kernel/dotnet/Smoke --locked-mode
+      - run: dotnet run --project integrations/semantic-kernel/dotnet/Smoke --no-restore
+      - run: dotnet restore integrations/semantic-kernel/dotnet/Example --locked-mode
+      - run: dotnet build integrations/semantic-kernel/dotnet/Example --no-restore
+      - run: python integrations/semantic-kernel/test_server_contract.py
