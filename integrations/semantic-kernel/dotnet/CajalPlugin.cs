@@ -2,19 +2,26 @@ using System.ComponentModel;
 using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.SemanticKernel;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Smoke")]
 
 namespace Cajal.SemanticKernel;
 
 /// <summary>Native community plugin for the installable CAJAL local chat server.</summary>
-public sealed class CajalPlugin
+public sealed class CajalPlugin : IDisposable
 {
     private readonly HttpClient _http;
     private readonly Uri _server;
     private readonly string _model;
 
-    public CajalPlugin(HttpClient http, Uri server, string model)
+    public CajalPlugin(Uri server, string model)
+        : this(new HttpClientHandler { AllowAutoRedirect = false, UseProxy = false }, server, model) { }
+
+    // Transport injection is internal and only used by the regression harness.
+    internal CajalPlugin(HttpMessageHandler handler, Uri server, string model)
     {
-        ArgumentNullException.ThrowIfNull(http);
+        ArgumentNullException.ThrowIfNull(handler);
         ArgumentNullException.ThrowIfNull(server);
         ArgumentException.ThrowIfNullOrWhiteSpace(model);
         if (!server.IsAbsoluteUri || !server.IsLoopback ||
@@ -22,10 +29,12 @@ public sealed class CajalPlugin
         {
             throw new ArgumentException("CAJAL server must be a loopback HTTP(S) URL without credentials.", nameof(server));
         }
-        _http = http;
+        _http = new HttpClient(handler) { Timeout = TimeSpan.FromMinutes(5) };
         _server = server;
         _model = model;
     }
+
+    public void Dispose() => _http.Dispose();
 
     [KernelFunction("ask_local")]
     [Description("Ask the local CAJAL/Ollama model. Output is generated text, not verified facts or citations.")]
