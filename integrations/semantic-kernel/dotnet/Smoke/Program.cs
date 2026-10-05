@@ -1,12 +1,12 @@
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using Cajal.SemanticKernel;
 using Microsoft.SemanticKernel;
 
 var handler = new FakeServer();
-using var http = new HttpClient(handler);
-var plugin = new CajalPlugin(http, new Uri("http://127.0.0.1:8765"), "fixture-model");
+using var plugin = new CajalPlugin(handler, new Uri("http://127.0.0.1:8765"), "fixture-model");
 var kernel = Kernel.CreateBuilder().Build();
 kernel.Plugins.AddFromObject(plugin, "cajal");
 Check(kernel.Plugins["cajal"].Count() == 2, "plugin discovery");
@@ -39,11 +39,48 @@ await Expect<OperationCanceledException>(() => plugin.AskAsync("test", canceled.
 foreach (var uri in new[] { "https://example.com", "http://user:pass@localhost", "file:///tmp/server" })
 {
     var failed = false;
-    try { _ = new CajalPlugin(http, new Uri(uri), "fixture-model"); }
+    try { using var invalidPlugin = new CajalPlugin(new Uri(uri), "fixture-model"); }
     catch (ArgumentException) { failed = true; }
     Check(failed, "remote/credentialed server rejected");
 }
-Console.WriteLine("PASS: real SK discovery/invocation, contract, errors, malformed output, cancellation and loopback scope. Transport is mocked; no model inference.");
+foreach (var status in new[] {307, 308})
+    foreach (var healthCheck in new[] {false, true})
+        await RejectRedirect(status, healthCheck);
+Console.WriteLine("PASS: real SK discovery/invocation and negative contracts; actual HTTP 307/308 chat/health requests never follow redirects. Model inference is mocked.");
+
+static async Task RejectRedirect(int status, bool healthCheck)
+{
+    var source = new TcpListener(IPAddress.Loopback, 0);
+    var target = new TcpListener(IPAddress.Loopback, 0);
+    source.Start(); target.Start();
+    try
+    {
+        var sourceUri = new Uri($"http://127.0.0.1:{((IPEndPoint)source.LocalEndpoint).Port}");
+        var targetUri = $"http://127.0.0.1:{((IPEndPoint)target.LocalEndpoint).Port}/redirect-target";
+        using var noTarget = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+        var targetRequest = target.AcceptTcpClientAsync(noTarget.Token).AsTask();
+        var serve = Task.Run(async () =>
+        {
+            using var peer = await source.AcceptTcpClientAsync(noTarget.Token);
+            await using var stream = peer.GetStream();
+            using var reader = new StreamReader(stream, Encoding.ASCII, false, 1024, leaveOpen:true);
+            var length = 0;
+            while (await reader.ReadLineAsync(noTarget.Token) is {Length: > 0} line)
+                if (line.StartsWith("Content-Length:", StringComparison.OrdinalIgnoreCase)) length = int.Parse(line.Split(':')[1]);
+            if (length > 0) await reader.ReadBlockAsync(new char[length], noTarget.Token);
+            await stream.WriteAsync(Encoding.ASCII.GetBytes($"HTTP/1.1 {status} Redirect\r\nLocation: {targetUri}\r\nContent-Length: 0\r\nConnection: close\r\n\r\n"), noTarget.Token);
+        });
+        using var realPlugin = new CajalPlugin(sourceUri, "fixture-model");
+        await Expect<HttpRequestException>(() => healthCheck ? realPlugin.HealthAsync() : realPlugin.AskAsync("private fixture prompt"), "redirect must fail");
+        await serve;
+        await Task.Delay(100);
+        Check(!targetRequest.IsCompletedSuccessfully, "redirect target must receive no connection");
+        noTarget.Cancel();
+        try { using var unexpected = await targetRequest; throw new Exception("Redirect followed"); }
+        catch (OperationCanceledException) { }
+    }
+    finally { source.Stop(); target.Stop(); }
+}
 
 static void Check(bool condition, string message) { if (!condition) throw new Exception("FAIL: " + message); }
 static async Task Expect<T>(Func<Task<string>> action, string message) where T : Exception
