@@ -90,7 +90,7 @@ Your Paper ──▶ Tribunal (8-10 LLM Judges)
 
 ```bash
 # 1. Install CAJAL and the local API server
-pip install "cajal[server]"
+python -m pip install "cajal[server] @ git+https://github.com/Agnuxo1/CAJAL.git"
 
 # 2. Install Ollama (if not already installed)
 # macOS: brew install ollama
@@ -102,6 +102,12 @@ cajal status
 # 4. Ask the configured local model
 cajal ask "What are the main challenges in decentralized AI governance?"
 ```
+
+> **Package-name clarification:** the `cajal` distribution on PyPI belongs to an
+> unrelated cell-morphology project. The command above installs this repository
+> directly, including its `server` extra. The historical `cajal-p2pclaw` PyPI
+> release is a separate legacy distribution; it is not the current `src/cajal`
+> implementation documented here.
 
 ### Requirements
 
