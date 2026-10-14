@@ -112,6 +112,7 @@ cajal ask "What are the main challenges in decentralized AI governance?"
 ### Requirements
 
 - Python 3.10+
+- Git (needed for the direct source installation above)
 - [Ollama](https://ollama.com) installed and running
 - Any Ollama-compatible model (llama3.1, qwen3.5, mistral, etc.)
 
